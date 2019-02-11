@@ -3,10 +3,28 @@ const express = require('express');
 const { json } = require('body-parser');
 const session =  require('express-session');
 const massive = require('massive')
-const app = express();
 const { signup, login, getUser } = require('./authController')
 
+//socket imports
+const http = require('http');
+const socketIO = require('socket.io');
+
+const app = express();
+
+//socket constants
+const server = http.createServer(app);
+const io = socketIO(server)
+
 app.use(json())
+
+//set up socket listeners
+io.on('connection', socket =>{
+    console.log('A user connected')
+    
+    socket.on('disconnect' , ()=>{
+        console.log('a user disconeccted')
+    })
+})
 
 
 //set up session
@@ -34,6 +52,6 @@ app.post('/auth/login', login);
 app.get('/auth/getUser', getUser);
 
 //server port
-app.listen(process.env.EXPRESS_PORT, ()=>{
-    console.log(`Listening on port ${EXPRESS_PORT}`)
+server.listen(process.env.EXPRESS_PORT, ()=>{
+    console.log(`Listening on port ${process.env.EXPRESS_PORT}`)
 });
