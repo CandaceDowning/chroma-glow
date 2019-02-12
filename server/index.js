@@ -2,29 +2,30 @@ require('dotenv').config();
 const express = require('express');
 const { json } = require('body-parser');
 const session =  require('express-session');
-const massive = require('massive')
-const { signup, login, getUser } = require('./authController')
-
-//socket imports
-const http = require('http');
-const socketIO = require('socket.io');
-
+const massive = require('massive');
 const app = express();
-
-//socket constants
-const server = http.createServer(app);
-const io = socketIO(server)
+const { signup, login, getPlayer, logout } = require('./authController');
 
 app.use(json())
 
-//set up socket listeners
-io.on('connection', socket =>{
-    console.log('A user connected')
+// //socket imports
+// const http = require('http');
+// const socketIO = require('socket.io');
+
+// //socket constants
+// const server = http.createServer(app);
+// const io = socketIO(server)
+
+
+
+// //set up socket listeners
+// io.on('connection', socket =>{
+//     console.log('A user connected')
     
-    socket.on('disconnect' , ()=>{
-        console.log('a user disconeccted')
-    })
-})
+//     socket.on('disconnect' , ()=>{
+//         console.log('a user disconeccted')
+//     })
+// })
 
 
 //set up session
@@ -49,9 +50,10 @@ massive(process.env.CONNECTION_STRING).then(db=>{
 //endpoints
 app.post('/auth/signup', signup);
 app.post('/auth/login', login);
-app.get('/auth/getUser', getUser);
+app.get('/auth/getplayer', getPlayer);
+app.post('/auth/logout', logout)
 
 //server port
-server.listen(process.env.EXPRESS_PORT, ()=>{
+app.listen(process.env.EXPRESS_PORT, ()=>{
     console.log(`Listening on port ${process.env.EXPRESS_PORT}`)
 });

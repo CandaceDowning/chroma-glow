@@ -4,6 +4,6 @@ import auth_reducer from './auth_reducer';
 
 const composeEnhancers =  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const store = createStore(reducer, composeEnhancers(applyMiddleware(promiseMiddlware)));
+const store = createStore(auth_reducer, composeEnhancers(applyMiddleware(promiseMiddlware)));
 
 export default store;

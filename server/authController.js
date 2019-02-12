@@ -2,46 +2,57 @@ const bcrypt = require('bcryptjs');
 
 module.exports = {
 
-    signup: async(req, res) =>{
+    signup: async (req, res) => {
         const db = req.app.get('db');
-        const { username, password } =  req.body;
+        const { playername, password } =  req.body;
+        console.log(req.body)
         const hash = await bcrypt.hash(password, 12);
-
+        
         try{
-            const response = await db.add_user([username, hash]);
-            req.session.user = {username: response[0].username};
-            res.status(201).json(response[0].username);
+            const response = await db.add_player([playername, hash]);
+            console.log(response)
+            req.session.player = {
+                playername: response[0].playername,
+                theme: response[0].theme
+            };
+            res.status(200).json(response[0].playername);
         } catch(error){
             console.log(error);
-            res.status(500).json('Error occurred');
+            res.status(401).json('Error occurred');
         }
     },
 
     login: async(req, res) =>{
         const db = req.app.get('db');
-        const { username, password } =  req.body;
-        db.find_user(username).then(async response =>{
+        const { playername, password } =  req.body;
+        db.find_player(playername).then(async response =>{
             console.log(response);
             if(!response.length){
-                res.status(404).json('No user found');
+                res.status(404).json('No player found');
             } else {
                 const match= await bcrypt.compare(password, response[0].hash);
                 if(!match){
-                    res.status(400).json({error: 'No user found'});
+                    res.status(400).json({error: 'No player found'});
                 }else{
-                    console.log(response[0].username);
-                    req.session.user = {username: response[0].username};
-                    res.json({username: response[0].username});
+                    console.log(response[0].playername);
+                    req.session.player = {playername: response[0].playername};
+                    console.log(req.session)
+                    res.json(response[0].playername);
                 }
             }
         })
     },
 
-    getUser: async(req, res) =>{
-        if(req.session.user){
-            res.json(req.session.user);
+    getPlayer: async(req, res) =>{
+        if(req.session.player){
+            res.json(req.session.player);
         }else{
             res.status(401).json({error: 'Please log in'});
         }
+    },
+
+    logout: (req, res) => {
+        req.session.destroy();
+        res.status(200).json(req.session)
     }
 }
