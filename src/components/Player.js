@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { getPlayer, logout } from '../ducks/auth_reducer'
+import { getPlayer, logout } from '../ducks/reducer'
+
 
 
 class Player extends Component {   
-
-    componentDidMount(){
-        this.props.getPlayer()
-        console.log(this.props.player)
-    }
 
     render(){
 
@@ -19,16 +15,18 @@ class Player extends Component {
                 
                 <div>
                     <div>
-                        <h1>{this.props.player.playername}'s Stats</h1>
+                        <h1 className='title player'>{this.props.player.playername}'s Stats</h1>
                     </div> 
+                    <div>
+                        <h3 className='stats'>Player stats go here</h3></div>
     
-                    <Link to = '/'><button onClick={this.props.logout}>logout</button></Link>
-                    <Link to = '/games'><button>Back to the fun</button></Link>
+                    <Link to = '/'><button className='btn logoutbtn' onClick={this.props.logout}>logout</button></Link>
+                    <Link to = '/games'><button className='btn backbtn'>Back to the fun</button></Link>
                 </div>
 
                 : <div>
-                    <h1>Your are tresspassing!</h1>
-                    <Link to = '/'><button>Escape</button></Link>
+                    <h1 className="title tresspass">YOU ARE TRESPASSING!</h1>
+                    <Link to = '/'><button className='btn escapebtn'>Escape</button></Link>
                     </div>}
             </div>
         )

@@ -30,10 +30,10 @@ class Landing extends Component {
         return(
             <div className='main landing'>
 
-                <h1>CHROMAGLOW</h1>
+                <h1 className='title'>CHROMA-GLOW</h1>
                 {this.state.show ? null : 
-                    <button 
-                        onClick = {this.toggleModal}>WannaPlay?</button>}
+                    <button className='btn authbtn'
+                        onClick = {this.toggleModal}>Press Start</button>}
                 
 
 
@@ -41,7 +41,7 @@ class Landing extends Component {
                 <div>
                    <AuthModal 
                     show = {this.state.show}
-                    toggleModal = {this.toggleModal}
+                    // toggleModal = {this.toggleModal}
                    />
                 </div>
 
