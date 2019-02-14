@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { getPlayer, logout } from '../ducks/reducer'
 
 
@@ -8,7 +8,9 @@ import { getPlayer, logout } from '../ducks/reducer'
 class Player extends Component {   
 
     render(){
-
+        if(!this.props.player.playername){
+            return <Redirect push to='/'/>
+        } 
         return(
             <div className='main player'>
                 {this.props.player.playername ? 

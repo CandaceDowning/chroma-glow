@@ -11,12 +11,6 @@ class Landing extends Component {
             show:false
         }
     }
-
-    componentDidUpdate(){
-        console.log(this.props)
-        console.log(this.props.player)
-        console.log(this.props.player.length)
-    }
     
     toggleModal= e => {
         this.setState({show: !this.state.show})
@@ -41,6 +35,7 @@ class Landing extends Component {
                 <div>
                    <AuthModal 
                     show = {this.state.show}
+                    toggleModal = {this.toggleModal}
                     // toggleModal = {this.toggleModal}
                    />
                 </div>

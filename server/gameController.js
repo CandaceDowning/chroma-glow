@@ -5,11 +5,19 @@ module.exports = {
     getClash: (req, res) => {
     const db = req.app.get('db')
 
+
+    //call for game information    
     db.get_clash()
     .then(clash => res.status(200).json(clash))
-    // .catch(err=> {
-    //     console.log(err);
-    //     res.status(500).json(err)
-    // }) 
+    .catch(err=> {
+        console.log(err);
+        res.status(500).json(err)
+    }) 
+    },
+
+
+    //socket functions
+    handleAns: (boo)=>{
+        console.log(boo)
     }
 }

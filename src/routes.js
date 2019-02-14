@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import Landing from './components/Landing'
 import Player from './components/Player'
 import GameLanding from './components/Games/GameLanding'
-import ColorClash from './components/Games/ColorClash'
+import ColorClash from './components/Games/ColorClash/ColorClash'
 // import SpecWave from './components/Games/SpecWave'
 // import Flashmaster from './components/Games/FlashMaster'
 

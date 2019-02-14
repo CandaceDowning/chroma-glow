@@ -34,7 +34,7 @@ class AuthModal extends Component {
         this.props.signup(this.state.playername, this.state.password).then(res=>{
             if(res.value.data){
                 this.props.history.push('/games')}
-            })
+            }).catch(alert(this.props.error))
     }
 
 

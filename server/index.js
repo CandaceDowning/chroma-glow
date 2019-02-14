@@ -5,31 +5,22 @@ const session =  require('express-session');
 const massive = require('massive');
 const app = express();
 const { signup, login, getPlayer, logout } = require('./authController');
-const { getClash } =  require('./gameController')
+const { getClash, handleAns } =  require('./gameController')
 
 app.use(json())
 
-// //socket imports
-const http = require('http');
-const socketIO = require('socket.io');
 
 // //socket constants
-const server = http.createServer(app);
-const io = socketIO(server)
+const server = require('http').createServer(app);
+const io = require('socket.io')(server)
 
 
 
-//set up socket listeners
-io.on('connection', function (client) =>{
-    console.log('A user connected')
-    client.on('join', handleJoin)
+// set up socket listeners
+io.on('connection', (socket) => {
 
-    socket.on(answer)
-
-    socket.on('disconnect', ()=>{
-        console.log('a user disconeccted')
-    })
-
+    socket.on('answer', handleAns)
+    
 })
 
 
@@ -55,14 +46,16 @@ massive(process.env.CONNECTION_STRING).then(db=>{
 //auth endpoints
 app.post('/auth/signup', signup);
 app.post('/auth/login', login);
-app.get('/auth/getplayer', getPlayer);
 app.post('/auth/logout', logout)
+app.get('/auth/getplayer', getPlayer);
+// app.delete('/aut/deleteplayer', deletePlayer)
+
 
 //game data endpoints
 app.get('/game/clash', getClash)
 
 
 //server port
-app.listen(process.env.EXPRESS_PORT, ()=>{
+server.listen(process.env.EXPRESS_PORT, ()=>{
     console.log(`Listening on port ${process.env.EXPRESS_PORT}`)
 });

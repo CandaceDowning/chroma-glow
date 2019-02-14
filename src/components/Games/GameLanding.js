@@ -7,16 +7,17 @@ class GameLanding extends Component {
 
     componentDidMount(){
         this.props.getClash()
-        // console.log(this.props)
+        console.log(this.props)
         this.props.getPlayer()
-        // console.log(this.props.player)
+        console.log(this.props.player) 
     }
 
     render(){
+        
         return(
             <div className='main'>
 
-                {this.props.player ? 
+                {this.props.player.playername ? 
                 
                 <div className='gamelanding'>
                     <h1 className='title'>
@@ -28,10 +29,11 @@ class GameLanding extends Component {
     
                 </div>
 
-                : <div className='trespass'>
+                : <div className='title'>
                     <h1>Your are tresspassing!</h1>
                     <Link to = '/'><button className='btn escapebtn'>Escape</button></Link>
                     </div>}
+
             </div>
         )
     }
