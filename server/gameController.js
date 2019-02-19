@@ -1,23 +1,29 @@
-//this page will house the calls to the db to get the game data on load of each game page
-
 module.exports = {
+  getClash: (req, res) => {
+    const db = req.app.get("db");
 
-    getClash: (req, res) => {
-    const db = req.app.get('db')
-
-
-    //call for game information    
+    //call for game information
     db.get_clash()
-    .then(clash => res.status(200).json(clash))
-    .catch(err=> {
+      .then(clash => {
+        req.session.clash = { clash: clash };
+        res.status(200).json(clash);
+      })
+      .catch(err => {
         console.log(err);
-        res.status(500).json(err)
-    }) 
-    },
+        res.status(500).json(err);
+      });
+  },
 
+  updateScore: (req, res) => {
+    const db = req.app.get("db");
+    const { id, finalScore } = req.body;
+    req.session.player.score = +finalScore;
 
-    //socket functions
-    handleAns: (boo)=>{
-        console.log(boo)
-    }
-}
+    db.update_score(id, finalScore)
+      .then(res.status(200).json(req.session.player))
+      .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+      });
+  }
+};

@@ -12,8 +12,10 @@ const LOG_IN = 'LOG_IN';
 const GET_PLAYER = 'GET_PLAYER';
 const LOG_OUT = 'LOG_OUT';
 
+
 //game action variable declaration
 const GET_CLASH = 'GET_CLASH'
+const UPDATE_SCORE = 'UPDATE_SCORE'
 
 //action creators
 export function signup(playername, password){
@@ -51,6 +53,13 @@ export function getClash(){
     }
 }
 
+export function updateScore(id, finalScore){
+    return{
+        type: UPDATE_SCORE,
+        payload: axios.put('/game/score', {id, finalScore})
+    }
+}
+
 
 //reducer
 export default function reducer(state=initialState, action){
@@ -60,6 +69,11 @@ export default function reducer(state=initialState, action){
             ...state,
             player: action.payload.data
         };
+        case `${SIGN_UP}_REJECTED`:     
+        return {
+            ...state,
+            error: action.payload.data
+        }
         case `${LOG_IN}_FULFILLED`:
         return {
             ...state,
@@ -68,7 +82,7 @@ export default function reducer(state=initialState, action){
         case `${LOG_IN}_REJECTED`:
         return {
             ...state,
-            error:"Username or password is incorrect"
+            error:action.payload.data
         };
         case `${GET_PLAYER}_FULFILLED`:
         return {
@@ -83,7 +97,12 @@ export default function reducer(state=initialState, action){
         case `${GET_CLASH}_FULFILLED`:
         return {
             ...state,
-            clash:action.payload.data
+            clash: action.payload.data
+        }
+        case `${UPDATE_SCORE}_FULFILLED`:
+        return{
+            ...state,
+            player: action.payload.data
         }
         default:
         return state;

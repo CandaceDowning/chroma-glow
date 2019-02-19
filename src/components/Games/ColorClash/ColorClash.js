@@ -1,206 +1,162 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
-import io from "socket.io-client";
-import { getClash } from "../../../ducks/reducer";
-import ClashQuest from './ClashQuest';
-import ClashQuestDone from './ClashQuestDone';
-
+import { Link } from "react-router-dom";
+import { getClash, updateScore } from "../../../ducks/reducer";
+import Timer from "./Timer";
 
 class ColorClash extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
-      room: 0,
-      timer: 20,
-      live: false,
-      questDone: false,
-      clashDone: false,
-      currentQuest: 0,
-      questions: [],
-      players: [],
-      playerCounter: 0,
-      statBoard: []
-    };
-
-  }
-
-  componentDidMount(){
-      getClash(clash =>{
-        this.setState({questions: clash})
-      })
-      this.socket = io('/');
-      this.genRoom()
-      this.socket.on('room-joined', data =>{
-        this.addPlayer(data.name, data.id)
-      })
-      this.socket.on('player-answer', data => {
-        this.subAns(data.name, data.ans)
-      })
-  }
-
-  genRoom = () => {
-    let newRoom =  Math.floor(Math.random()*9000, 10000)
-    this.setState({room: newRoom})
-    this.socket.emit('host-join', {room: newRoom})
-  }
-
-  startClash = () => {
-    let { players} = this.state
-    if (players[0] && players[1]){
-      this.nextQuest()
-      this.setState({
-        live: true
-      })
-    } else {
-      alert('It takes two to Clash')
-    }
-  }
-
-  QuestDone = () => {
-    this.socket.emit('quest-over', this.state.room)
-    let revPlayers = [...players];
-    revPlayers.forEach((player)=>{
-      player.questAnswered = false;
-      player.ansCorrect = false;
-    })
-    this.getLeaderBoard()
-    this.setState({
-      questDone: true,
-      currentQuest: this.state.currentQuest +1,
-      timer: 20,
-      players: revPlayers
-    })
-  }
-
-  timeKeeper = () => {
-    let intTime = 20;
-    let players = [ ...this.state.players]
-
-    this.setState({questDone: false})
-
-    timeCheck = () =>{
-      let checkAns = () => {
-        let pAns = 0;
-        players.forEach(player => {
-          player.qAns? ++pAns: null
-        })
-        players.forEach(player=>{
-          if(player.ansCorrect){
-            player.score += (intTime*10 +1000)
-            this.socket.emit('sent-info', {id: player.id, score: player.score, ansCorrect: player.ansCorrect})
-          }
-        });
-        pAns === players.length ? intTime = 0 : nullintTime -=1;
-      }
-      endQuest = () => {
-        clearInterval(timeKept);
-        this.questDone()
-      }
-      return intTime > 0
-      ? checkAns()
-      : endQuest()
-    }
-    let timeKept = setInterval(()=>{ timeCheck()}, 1000)
-    return timeKept
-  }
-
-  nextQuest = () => {
-    this.timeKeeper()
-
-    currentQuest === quest.length
-    ? this.setState({questDone: true})
-    : this.socket.emit('next-quest', {room})
-      this.setState({questDone: false})
-  }
-
-  addPlayer = (name, id) => {
-    let player = {
-      id: id,
-      name: this.props.player.playername,
+      playerAns: false,
+      playerCorrect: false,
+      questCount: 0,
+      correctCount: 0,
       score: 0,
-      qAns: false,
-      ansCorrect: false
+      mixedClash: props.clash
+    };
+  }
+
+  stopTime = time => {
+    console.log(this.state.score);
+    console.log(time);
+    let score = this.state.score;
+    this.setState({ score: (score += parseInt(time)) });
+  };
+
+  answer = ans => {
+    this.setState({ playerAns: true });
+
+    if (ans === true) {
+      this.setState({
+        playerCorrect: true,
+        correctCount: this.state.correctCount + 1
+      });
     }
-    let newPlayer = [...this.state.player]
-    newPlayer.push(player)
+  };
+
+  next = () => {
     this.setState({
-      players: newPlayer,
-      playerCounter: this.state.playerCounter++
-    })
-  }
+      questCount: this.state.questCount + 1,
+      playerAns: false,
+      playerCorrect: false
+    });
 
-  submitAns = (name, ans) => {
-    let player = this.state.players.filter(player => player.name === name)
-    let revPlayers = this.state.players.filter(player => player.name !== name)
+    // if(this.state.score > this.props.player.score){
+    //   this.props.updateScore(this.props.player.id, this.state.score)
+    // }
+  };
 
-    player[0].qAns = true;
-    ans === this.state.questions[this.state.currentQuestion].correctAns
-    ? player[0].ansCorrect = true
-    : player[0].ansCorrect = false
-
-    revPlayers.push(player[0])
-    this.setState({
-      players:revPlayers
-    })
-  }
-
-  getLeader = () => {
-    let all = [...this.state.players]
-    let statBoard = all.sort((a,b)=> b.score - a.score)
-    this.setState({
-      statBoard: statBoard
-    })
-  }
-
+  endClash = () => {
+    let id = this.props.player.id;
+    let finalScore = this.state.score * this.state.correctCount;
+    console.log(this.props.player.score);
+    if (finalScore > this.props.player.score) {
+      this.props.updateScore(id, finalScore);
+    }
+    console.log(id);
+    console.log(finalScore);
+  };
 
   render() {
-    let { room, questions, currentQuest, live, questDone, clashDone } = this.state;
-    let sortedPlayers =  this.state.map(player => {
-      return(
-        <p key={player.id}>{player.name}</p>
-      )
-    })
+    const { clash } = this.props;
+
+    const current = clash.length && this.state.questCount;
+    const random1 = Math.floor(Math.random() * 17);
+    const random2 = Math.floor(Math.random() * 17);
+
+    const quest = clash.length && this.state.mixedClash[current].question;
+    const answer = clash.length && this.state.mixedClash[current].answer;
+    const wrong1 = clash.length && this.state.mixedClash[random1].answer;
+    const wrong2 = clash.length && this.state.mixedClash[random2].answer;
+    // console.log(current)
 
     return (
       <div className="main colorClash">
-        <div>
-          <h4>Clash Designation</h4>
-          <h3>{room}</h3>
-        </div>
-        {!live && !questDone && !clashDone ?
-          <div>
-            <button onClick={()=> this.startClash()}>Start Clash</button>
-            <p > Clashers Present</p>
-            {sortedPlayers}
+        {!this.props.clash[0] ? (
+          <div className="title">
+            <h1>CLASH INTERRUPTED</h1>
+            <Link to="/games">
+              <button className="btn escapebtn">Escape</button>
+            </Link>
           </div>
-        : 
-        live && !questDone && clashDone ?
-          <ClashQuest
-            question = {questions[currentQuest].question}
-            ans = {questions[currentQuest].answer}
-            wrong1 = {questions[Math.floor(Math.random()*17)].answer}
-            wrong2 = {questions[Math.floor(Math.random()*17)].answer}/>
-          :
-          <ClashQuestDone
-            nextQuest = {this.nextQuest}
-            statBoard = {this.state.statBoard}
-            lastQuest = {this.state.questions.length === this.state.currentQuest}/>  
+        ) : !this.state.playerAns && this.state.questCount < 5 ? (
+          <div>
+            <h1 className="title">Color Clash</h1>
+            <div className="title">
+              <h3>CLASH TIME:</h3> <Timer stopTime={this.stopTime} />
+            </div>
+            <h2 className="clashQuest">{quest}</h2>
+            <div>
+              <button onClick={() => this.answer(true)}>
+                <h4 className="clashAnswer">{answer}</h4>
+              </button>
+              <button>
+                <h4 className="clashAnswer" onClick={() => this.answer(false)}>
+                  {wrong1}
+                </h4>
+              </button>
+              <button>
+                <h4 className="clashAnswer" onClick={() => this.answer(false)}>
+                  {wrong2}
+                </h4>
+              </button>
+              <div>
+                <Link to="/games">
+                  <button className="btn backbtn">Surrender</button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        ) : this.state.playerAns &&
+          this.state.playerCorrect &&
+          this.state.questCount < 5 ? (
+          <div>
+            <h1 className="title">VICTORY</h1>
+            <button onClick={() => this.next()} className="btn clashbtn">
+              NEXT CLASH
+            </button>
+            <div>
+              <Link to="/games">
+                <button className="btn backbtn">Surrender</button>
+              </Link>
+            </div>
+          </div>
+        ) : this.state.playerAns &&
+          !this.state.playerCorrect &&
+          this.state.questCount < 5 ? (
+          <div>
+            <h1 className="title">DEFEAT</h1>
+            <button onClick={() => this.next()} className="btn clashbtn">
+              NEXT CLASH
+            </button>
+            <div>
+              <Link to="/games">
+                <button className="btn backbtn">Surrender</button>
+              </Link>
+            </div>
+          </div>
+        ) : (
+          <div>
+            <p className="title">
+              Salvage: {this.state.score * this.state.correctCount}
+            </p>
 
-        }
+            <Link to="/games">
+              <button className="btn backbtn" onClick={() => this.endClash()}>
+                Back to Base
+              </button>
+            </Link>
+          </div>
+        )}
       </div>
     );
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    quiz: state.quiz
-  }
-};
-
+const mapStateToProps = state => state;
 export default connect(
   mapStateToProps,
-  { getClash }
+  { getClash, updateScore }
 )(ColorClash);

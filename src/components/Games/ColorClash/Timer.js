@@ -1,65 +1,39 @@
 import React, { Component } from 'react'
 
 export default class Timer extends Component {
-    constructor(){
-        super()
+    _isMounted=false;
+
+    constructor(props){
+        super(props)
 
         this.state = {
-            time: {},
-            seconds: 20
+            time: 20
         }
-
-        this.timer = 0;
     }
 
-    timeCalc = (secs) => {
-        let hours = Math.floor(secs / (60 * 60))
-
-        let minDiv = secs % (60 * 60)
-        let min = Math.floor(minDiv % 60)
-
-        let secDiv = minDiv % 60
-        let seconds =  Math.ceil(secDiv)
-
-        let clock = {
-            "h": hours,
-            "m": min,
-            "s": sec
-        }
-        return clock
-    }
 
     componentDidMount(){
-        let timeRem = this.timeCalc(this.state.seconds)
-        this.setState({
-            time: timeRem
-        })
-        this.startTime()
+    this._isMounted= true;
     }
 
-    startTime = () => {
-        if(this.timer == 0) {
-            this.timer = setInterval(this.count, 1000)
-        }
+    componentWillUnmount(){
+        this._isMounted = false;
+        this.props.stopTime(this.state.time)
     }
 
-    count = () => {
-        let seconds = this.state.seconds -1
-        this.setState({
-            time: this.timeCalc(seconds),
-            seconds: seconds
-        })
-
-        if (seconds === 0)
-        clearInterval(this.timer)
-    }
 
     render(){
-        return(
-            <div>
-                Seconds left: {this.state.time.s}
-            </div>
-        )
-    }
-
+    setTimeout(()=>{
+       if(this.state.time>0 && this._isMounted){
+           this.setState({time: (this.state.time - 0.01).toFixed(2)})
+       }
+    }, 10)
+   
+    return(
+        <div>
+            {this.state.time}
+        </div>
+    )
+}
+  
 }

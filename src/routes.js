@@ -13,7 +13,7 @@ export default(
         <Route exact path = '/' component = {Landing}/>
         <Route path = '/player' component = {Player}/>
         <Route exact path = '/games' component = {GameLanding}/>
-        <Route path = '/games/colorclash' component = {ColorClash}/>
+        <Route path = '/games/clash' component = {ColorClash}/>
         {/* <Route path = '/games/spectralwave' component = {SpecWave}/>
         <Route path = '/games/flashmaster' component = {FlashMaster}/> */}
     </Switch>
