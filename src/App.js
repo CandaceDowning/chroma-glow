@@ -3,7 +3,7 @@ import store from './ducks/store'
 import { Provider } from 'react-redux'
 import { BrowserRouter as Router } from 'react-router-dom'
 import routes from './routes'
-import './App.css';
+import './App.scss';
 
 
 class App extends Component {

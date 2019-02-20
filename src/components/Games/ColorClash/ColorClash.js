@@ -3,6 +3,9 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { getClash, updateScore } from "../../../ducks/reducer";
 import Timer from "./Timer";
+import Victory from './Victory'
+import Defeat from './Defeat'
+import ClashEnd from './ClashEnd'
 
 class ColorClash extends Component {
   constructor(props) {
@@ -14,7 +17,22 @@ class ColorClash extends Component {
       questCount: 0,
       correctCount: 0,
       score: 0,
-      mixedClash: props.clash
+      mixedClash: props.clash,
+      question: "",
+      answers:[
+          {
+          text:"",
+          boo: false
+          },
+          {
+            text:"",
+            boo: false
+          },
+          {
+            text:"",
+            boo: false
+          }
+      ]
     };
   }
 
@@ -43,14 +61,11 @@ class ColorClash extends Component {
       playerCorrect: false
     });
 
-    // if(this.state.score > this.props.player.score){
-    //   this.props.updateScore(this.props.player.id, this.state.score)
-    // }
   };
 
   endClash = () => {
     let id = this.props.player.id;
-    let finalScore = this.state.score * this.state.correctCount;
+    let finalScore = Math.floor((this.state.score/5) * this.state.correctCount);
     console.log(this.props.player.score);
     if (finalScore > this.props.player.score) {
       this.props.updateScore(id, finalScore);
@@ -74,20 +89,25 @@ class ColorClash extends Component {
 
     return (
       <div className="main colorClash">
+        {/* CATCH ALL FOR REFRESH MID-GAME */}
         {!this.props.clash[0] ? (
           <div className="title">
-            <h1>CLASH INTERRUPTED</h1>
+            <h1 className="title">CLASH INTERRUPTED</h1>
             <Link to="/games">
               <button className="btn escapebtn">Escape</button>
             </Link>
           </div>
-        ) : !this.state.playerAns && this.state.questCount < 5 ? (
+        ) : // GAME START
+        !this.state.playerAns && this.state.questCount < 5 ? (
           <div>
             <h1 className="title">Color Clash</h1>
+
             <div className="title">
-              <h3>CLASH TIME:</h3> <Timer stopTime={this.stopTime} />
+              <p>CLASH TIME:</p> <Timer stopTime={this.stopTime} />
             </div>
+
             <h2 className="clashQuest">{quest}</h2>
+
             <div>
               <button onClick={() => this.answer(true)}>
                 <h4 className="clashAnswer">{answer}</h4>
@@ -108,48 +128,71 @@ class ColorClash extends Component {
                 </Link>
               </div>
             </div>
-          </div>
-        ) : this.state.playerAns &&
-          this.state.playerCorrect &&
-          this.state.questCount < 5 ? (
-          <div>
-            <h1 className="title">VICTORY</h1>
-            <button onClick={() => this.next()} className="btn clashbtn">
-              NEXT CLASH
-            </button>
-            <div>
-              <Link to="/games">
-                <button className="btn backbtn">Surrender</button>
-              </Link>
-            </div>
-          </div>
-        ) : this.state.playerAns &&
-          !this.state.playerCorrect &&
-          this.state.questCount < 5 ? (
-          <div>
-            <h1 className="title">DEFEAT</h1>
-            <button onClick={() => this.next()} className="btn clashbtn">
-              NEXT CLASH
-            </button>
-            <div>
-              <Link to="/games">
-                <button className="btn backbtn">Surrender</button>
-              </Link>
-            </div>
-          </div>
-        ) : (
-          <div>
-            <p className="title">
-              Salvage: {this.state.score * this.state.correctCount}
-            </p>
 
+            <div className="dash">
+          <div className="btn1">
             <Link to="/games">
-              <button className="btn backbtn" onClick={() => this.endClash()}>
-                Back to Base
-              </button>
+              <button />
             </Link>
           </div>
+
+          <div className="btn-key-screen">
+            <div className="key-box">
+              <div className="key-holder">
+                <div className="btn1-key key" />
+                <p>SURRENDER</p>
+              </div>
+              <div className="key-holder">
+                <div className="btn2-key key" />
+                <p>ONE </p>
+              </div>
+              <div className="key-holder">
+                <div className="btn3-key key" />
+                <p>TWO</p>
+              </div>
+              <div className="key-holder">
+                <div className="btn4-key key" />
+                <p>THREE</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="rigthbtn">
+            <div className="btn2"> 
+              <button />
+            </div>
+
+            <div className="bottombtn">
+              <button className="btn3" />
+              <button className="btn4" />
+            </div>
+          </div>
+        </div>
+
+          </div>
+        ) : //PLAYER ANSWERED QUESTION CORRECTLY
+        this.state.playerAns &&
+          this.state.playerCorrect &&
+          this.state.questCount < 5 ? (
+
+            <Victory next = {this.next}/>
+
+        ) : //PLAYER ANSWERED QUESTION INCORRECTLY
+        this.state.playerAns &&
+          !this.state.playerCorrect &&
+          this.state.questCount < 5 ? (
+
+          <Defeat next = {this.next}/>
+
+        ) : (
+          //END OF GAME
+          <ClashEnd salvage={Math.floor((this.state.score / 5)*this.state.correctCount)} end={this.endClash}/>
         )}
+
+        
+
+
+
       </div>
     );
   }

@@ -1,0 +1,139 @@
+@import "./styles/variables";
+@import "./styles/landing";
+@import "./styles/auth";
+@import "./styles/game-landing";
+
+//background for all components
+.main {
+  text-align: center;
+  background-color: $bg-color;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+//styles for dashboard that will be rendered on most components, but with diff functionality
+.dash {
+  position: absolute;
+  bottom: 0;
+  width: 100vw;
+  background-color: $dash-color;
+  display: flex;
+  justify-content: space-around;
+
+
+  //left button
+  .btn1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30vw;
+    button {
+      @include arcade-button(-1.5px, $btn1-color, $btn-glow-color, 52%, 47%);
+    }
+  }
+
+  //screen between buttons that displays key if neccesary
+  .btn-key-screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    background-color: $bg-color;
+    width: 30vh;
+    height: 20vh;
+    font-size: 2vh;
+    color: $yellow;
+    font-family: $label-font;
+    font-size: 80%;
+    margin: auto 5vw auto 5vw;
+    box-shadow: 0px 0px 15px $screen-glow-color;
+    @include border-radius(10%);
+
+    .key-box{
+      margin: 1.5vh 0 1.5vh 0;
+      display: flex;
+      flex-direction: column;
+
+    .key-holder {
+      display: flex;
+      align-items: center;
+      margin: 1vh 2vh 1vh 1.5vh;
+      .key {
+        margin: 1vh;
+        width: 1vh;
+        height: 1vh;
+        @include border-radius(50%)
+      }
+
+      .btn1-key {
+        background-color: $btn1-color;
+      
+      }
+      .btn2-key {
+        background-color: $btn2-color;
+      }
+      .btn3-key {
+        background-color: $btn3-color;
+      }
+      .btn4-key {
+        background-color: $btn4-color;
+      }
+     
+      }
+    }
+  }
+  .rigthbtn {
+    width: 30.5vw;
+    .btn2 {
+      button {
+        @include arcade-button(2px, $btn2-color, $btn-glow-color, 47%, 47%);
+      }
+    }
+    .btn3 {
+      @include arcade-button(2px, $btn3-color, $btn-glow-color, 47%, 47%);
+      margin-right: 5vw;
+    }
+    .btn4 {
+      @include arcade-button(2px, $btn4-color, $btn-glow-color, 47%, 47%);
+    }
+  }
+}
+
+//Game title styling
+.title {
+  margin: 0;
+  font-size: 10vh;
+  font-family: $title-font;
+  @include text-stroke($title-stroke-color, 0.25px, $title-color);
+  @include glow-shadow($yellow);
+}
+
+
+//BASIC CODE FOR THE DASHBOARD
+
+// <div className="dash">
+
+//           <div className="btn1">
+//             <button/>
+//           </div>
+
+//           <div className='btn-key-screen'>
+//             <div className='key-holder'><div className='btn1-key key'></div><p> placeholder</p></div>
+//             <div className='key-holder'><div className='btn2-key key'></div><p> placeholder</p></div>
+//             <div className='key-holder'><div className='btn3-key key'></div><p> placeholder</p></div>
+//             <div className='key-holder'><div className='btn4-key key'></div><p> placeholder</p></div>
+//           </div>
+
+//           <div className="rigthbtn">
+//             <div className="btn2">
+//               <button/>
+//             </div>
+
+//             <div className="bottombtn">
+//               <button className="btn3" />
+//               <button className="btn4" />
+//             </div>
+//           </div>
+//         </div>

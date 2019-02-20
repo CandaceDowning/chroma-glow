@@ -14,7 +14,9 @@ class Landing extends Component {
 
   toggleModal = e => {
     this.setState({ show: !this.state.show });
+    console.log(this.state.show)
   };
+
 
   render() {
     if (this.props.player.length) {
@@ -22,34 +24,45 @@ class Landing extends Component {
     }
 
     return (
-      <div className="main landing">
+      <div className="main">
+
+
         <h1 className="title">CHROMA-GLOW</h1>
+
         {this.state.show ? null : (
-          <button className="btn authbtn" onClick={this.toggleModal}>
-            Press Start
-          </button>
+          <p className='start'>PRESS START</p>
         )}
 
-        <div>
-          <AuthModal show={this.state.show} toggleModal={this.toggleModal} />
-        </div>
-
-        
         <div className="dash">
-          <div className="leftbtn">
-            <button />
+
+          <div className="btn1">
+            <button onClick={this.toggleModal}/>
+          </div>
+
+          <div className='btn-key-screen'>
+            <div className='key-box'>
+            <div className='key-holder'><div className='btn1-key key'></div><p> START</p></div>
+            <div className='key-holder'><div className='btn2-key key'></div><p> </p></div>
+            <div className='key-holder'><div className='btn3-key key'></div><p> </p></div>
+            <div className='key-holder'><div className='btn4-key key'></div><p> </p></div>
+            </div>
           </div>
 
           <div className="rigthbtn">
-            <div className="topbtn">
-              <button />
+            <div className="btn2">
+              <button/>
             </div>
 
             <div className="bottombtn">
-              <button className="btmlftbtn" />
-              <button className="btmrtbtn" />
+              <button className="btn3" />
+              <button className="btn4" />
             </div>
           </div>
+        </div>
+
+
+        <div>
+          <AuthModal show={this.state.show} handleChange={this.handleChange} toggleModal={this.toggleModal} />
         </div>
       </div>
     );

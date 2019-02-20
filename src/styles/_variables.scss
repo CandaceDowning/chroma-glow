@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css?family=Audiowide');
+// @import url('https://fonts.googleapis.com/css?family=Nosifer');
+// @import url('https://fonts.googleapis.com/css?family=Permanent+Marker');
+@import url('https://fonts.googleapis.com/css?family=Press+Start+2P');
+
+
+//font variables
+
+$title-font: 'Audiowide', cursive;
+$subtitle-font: 'Press Start 2P', cursive;
+$label-font: 'Audiowide', cursive;
+
+//color variables
+$red: #c81139;
+$yellow: #fbfe06;
+$green: #28f9fc;
+$blue: #5c6bfe;
+$purple: #e006e7;
+
+$bg-color: #1b0025;
+
+$dash-color: #24023b;
+
+$title-stroke-color: $green;
+$title-color: $yellow;
+
+
+
+
+
+//dash button variables
+$btn1-color: $red;
+$btn2-color: darken($green, 15%);
+$btn3-color: $blue;
+$btn4-color: $purple;
+
+$btn-glow-color: $yellow;
+$screen-glow-color: $blue;
+
+//auth variables
+$auth-btn-color: $blue;
+$modal-bg-color: darken($purple, 20%);
+$input-bg-color: lighten($bg-color, 5%);
+
+
+
+  //styles border radius for all browsers
+  @mixin border-radius($radius) {
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    -ms-border-radius: $radius;
+    border-radius: $radius;
+  }
+
+
+//styles buttons allowing for different direction drop shadow, button color, shadow color, and gradient direction
+@mixin arcade-button($direction, $color, $shadow-color, $drop1, $drop2) {
+    border: .5px solid darken($color, 30%);
+    width: 10vh;
+    height: 10vh;
+    background-image: radial-gradient(closest-side at $drop1 $drop2,
+      darken($color, 8%)70%,
+      $color 90%,
+      darken($color, 10%) 
+    );
+    box-shadow: $direction 1px 6px $shadow-color;
+    margin: 1vh 0 2vh 0;
+    @include border-radius(50%);
+  }
+
+
+  //drop shadow for text
+  @mixin glow-shadow($color) {
+    text-shadow: 0px 0px 20px $color;
+  }
+  
+
+
+
+  //fill color for text using stroke for all web browsers 
+  @mixin fill-color($color) {
+    -webkit-text-fill-color: $color;
+    -moz-text-fill-color: $color;
+    -ms-text-fill-color: $color;
+  }
+
+  //stroke width for text using stroke for all web browsers 
+  @mixin stroke-width($width) {
+    -webkit-text-stroke-width: $width;
+    -moz-text-stroke-width: $width;
+    -ms-text-stroke-width: $width;
+  }
+  
+  //stroke color for text using stroke for all web browsers
+  @mixin stroke-color($color) {
+    -webkit-text-stroke-color: $color;
+    -moz-text-stroke-color: $color;
+    -ms-text-stroke-color: $color;
+  }
+
+  //single mixin for text stroke
+  @mixin text-stroke($fill-color, $width, $stroke-color){
+    @include fill-color($fill-color);
+    @include stroke-width($width);
+    @include stroke-color($stroke-color)
+
+}

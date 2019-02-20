@@ -54,35 +54,44 @@ class AuthModal extends Component {
       <div className={showHideClassname}>
         <section className="authmodal">
           <form className="authform" onSubmit={this.handleLogin}>
+            <div className='cursor'>
             <input
               className="modalinput"
               required
               value={this.state.playername}
               name="playername"
-              placeholder="playername"
+              placeholder="DESIGNATION"
               onChange={this.handleChange}
-            />
+            /></div>
+            <div className='cursor'>
             <input
               className="modalinput"
               required
               // type='password'
               value={this.state.password}
               name="password"
-              placeholder="password"
+              placeholder="PASSWORD"
               onChange={this.handleChange}
-            />
+            /></div>
           </form>
-          <div>
-            <button className="btn modalbtn" onClick={this.handleLogin}>
-              Log in
-            </button>
-            <button className="btn modalbtn" onClick={this.handleSignup}>
-              Sign up
-            </button>
-            <button className="btn modalbtn" onClick={this.props.toggleModal}>
-              Cancel
-            </button>
+          
+          <div className='auth-dash'>
+            <div>
+            <button className="modalbtn" onClick={this.handleLogin}/>
+            <p className='auth-label'>LOG-IN</p>
+            </div>
+            
+            <div>
+            <button className="modalbtn" onClick={this.handleSignup}/>
+            <p className='auth-label'>SIGN-UP</p>
+            </div>
+            
+            <div>
+            <button className="modalbtn" onClick={this.props.toggleModal}/>
+            <p className='auth-label'>GIVE-UP</p>
+            </div>
           </div>
+
         </section>
       </div>
     );
