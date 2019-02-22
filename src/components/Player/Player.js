@@ -1,17 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
-import { getClash, getPlayer } from "../../ducks/reducer";
+import { getPlayer, logout } from "../../ducks/reducer";
 import Escape from "../Escape";
 
-class GameLanding extends Component {
+class Player extends Component {
   componentDidMount() {
-    this.props.getClash();
-    console.log(this.props);
-
     this.props.getPlayer();
     console.log(this.props.player);
-
     if (!this.props.player.length) {
       return <Redirect push to="/" />;
     }
@@ -20,53 +16,77 @@ class GameLanding extends Component {
   render() {
     return (
       <div className="main">
+
+
+
         {this.props.player.playername ? (
-          <div className="gamelanding">
-            <h1 className="title">NAVIGATION</h1>
+          <div>
+            
+            
+            <div>
+
+              <h1 className="player-title">
+                {this.props.player.playername}'S COMMAND CONSOLE
+              </h1>
+
+              <div className="salvage">
+                <h3>TOP SALVAGE COUNT:</h3> 
+                <p >{this.props.player.score}</p>
+              </div>
+
+
+            </div>
+
+            
+{/* still needs other elements like chart js stats and options to delete account and change theme  */}
+
+
+
+
+
             <div className="dash">
               <div className="btn1">
-                <Link to="/player">
-                  <button />
+                <Link to="/">
+                  <button onClick={this.props.logout} />
                 </Link>
               </div>
               <div className="btn-key-screen">
                 <div className="key-box">
                   <div className="key-holder">
                     <div className="btn1-key key" />
-                    <p>COMMAND CONSOLE</p>
+                    <p>LOG OUT</p>
                   </div>
                   <div className="key-holder">
                     <div className="btn2-key key" />
-                    <p>COLOR CLASH </p>
+                    <p>NAVIGATION</p>
                   </div>
                   <div className="key-holder">
                     <div className="btn3-key key" />
-                    <p>FLASH TRAINER</p>
+                    <p></p>
                   </div>
                   <div className="key-holder">
                     <div className="btn4-key key" />
-                    <p>SPECTRAL ANALYSIS</p>
+                    <p></p>
                   </div>
                 </div>
               </div>
               <div className="rigthbtn">
                 <div className="btn2">
-                  <Link to="/games/clash">
+                  <Link to="/games">
                     <button />
                   </Link>
                 </div>
 
                 <div className="bottombtn">
-                  <Link to='/games/flash'><button className="btn3" /></Link>
+                  <button className="btn3" />
                   <button className="btn4" />
                 </div>
               </div>
             </div>
+
           </div>
         ) : (
-          <div className="start">
-            <Escape />
-          </div>
+          <Escape />
         )}
       </div>
     );
@@ -74,7 +94,8 @@ class GameLanding extends Component {
 }
 
 const mapStateToProps = state => state;
+
 export default connect(
   mapStateToProps,
-  { getClash, getPlayer }
-)(GameLanding);
+  { getPlayer, logout }
+)(Player);

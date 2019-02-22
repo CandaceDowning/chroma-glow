@@ -1,0 +1,22 @@
+.player-title{
+    margin: 0;
+    font-size: 7vh;
+    font-family: $title-font;
+    @include text-stroke($title-stroke-color, 0.25px, $title-color);
+    @include text-glow-shadow($yellow);
+}
+
+
+.salvage{
+        color: $subtitle-color;
+    font-family: $subtitle-font;
+
+    @include text-glow-shadow($screen-glow-color);
+    h1{
+    font-size: 7vh;
+    }
+    p{
+    font-size: 4vh;
+    }
+
+}

@@ -1,3 +1,6 @@
+const shuffle = require('shuffle-array')
+
+
 module.exports = {
   getClash: (req, res) => {
     const db = req.app.get("db");
@@ -5,7 +8,8 @@ module.exports = {
     //call for game information
     db.get_clash()
       .then(clash => {
-        req.session.clash = { clash: clash };
+        let shuffled = shuffle(clash)
+        req.session.clash = { clash: shuffled };
         res.status(200).json(clash);
       })
       .catch(err => {
@@ -25,5 +29,19 @@ module.exports = {
         console.log(err);
         res.status(500).json(err);
       });
+  },
+
+  updateLuck: (req, res) => {
+    const db = req.app.get("db");
+    const { id, luck } = req.body;
+    req.session.player.luck = +luck;
+
+    db.update_score(id, luck)
+      .then(res.status(200).json(req.session.player))
+      .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+      });
   }
+
 };

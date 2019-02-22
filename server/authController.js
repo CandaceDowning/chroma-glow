@@ -13,7 +13,8 @@ module.exports = {
       req.session.player = {
         id: response[0].id,
         playername: response[0].playername,
-        score: response[0].hi_score
+        score: response[0].hi_score,
+        luck: response[0].luck
       };
       res.status(200).json(req.session);
     } catch (error) {
@@ -40,7 +41,7 @@ module.exports = {
           // console.log(response[0].playername);
           req.session.player = {
             id: response[0].id,
-            playername: response[0].playername,
+            playername: response[0].playername ,
             score: response[0].hi_score
           };
           console.log(req.session);
@@ -48,6 +49,17 @@ module.exports = {
         }
       }
     });
+  },
+
+  deletePlayer: (req, res) =>{
+    const db = req.app.get("db");
+    const { id } = req.body
+
+    db.delete_player(id)
+    .then(()=>{
+      req.session.destroy();
+      res.status(200).json(req.session)
+    })   
   },
 
   getPlayer: (req, res) => {
@@ -63,10 +75,5 @@ module.exports = {
     res.status(200).json(req.session);
   }
 
-  // deletePlayer: (req, res) =>{
-  //   const db = req.app.get("db");
-  //   const { playername } = req.body
 
-  //   db.delete_player()
-  // }
 };

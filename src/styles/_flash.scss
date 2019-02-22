@@ -1,0 +1,26 @@
+.flashcard{
+    display:flex;
+    justify-content: center;
+	align-items: center;
+    width: 60vw;
+    height: 25vh;
+    margin: 10vw auto 30vw auto;
+    font-family: $subtitle-font;
+    font-size: 3vh;
+    @include border-radius(10px);
+    @include box-glow-shadow($screen-glow-color);
+    p{
+        margin: 5vw;
+        line-height: 4vh
+    }
+}
+
+.question{
+    background-color: $question-bg-color;
+    @include text-stroke($question-text-color, .75px, $question-stroke-color);
+}
+
+.answer{
+    background-color: $answer-bg-color;
+    @include text-stroke($answer-text-color, .75px, $answer-stroke-color);
+}

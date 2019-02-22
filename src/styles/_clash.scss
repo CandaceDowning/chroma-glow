@@ -1,0 +1,65 @@
+.timer-box{
+    margin: 1vh;
+    .timer{
+    margin:0;
+    font-family: $label-font;
+    color: $label-color;
+    font-size: 3vh;
+    @include text-glow-shadow($screen-glow-color)
+    }
+}
+
+
+.ans-box{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 5vh 0 0 0;
+
+    .ans{ 
+        p{
+        margin: 10px
+        }
+    display: flex;
+    align-items: center;
+    width: 25vw;
+    height: 17vw;
+    font-family: $label-font;
+    font-size: 2vw;
+
+    @include border-radius(10px);
+    @include box-glow-shadow(darken($screen-glow-color, 40%)); 
+    @include text-stroke(lighten($bg-color, 10%), .25px, $bg-color);
+    }
+    
+   .ans1{
+       background-color: darken($btn2-color, 10%);
+       margin-left: 2vw;
+   }
+   
+   .ans2{
+    background-color: darken($btn3-color, 10%);
+    }
+    .ans3{
+        background-color: darken($btn4-color, 10%);
+        margin-right: 2vw;
+    }
+
+}
+
+.victory, .defeat, .end{
+    margin: 25vh 0 0 0;
+    font-size: 15vh;
+    font-family: $title-font;    
+    @include text-glow-shadow($screen-glow-color);
+}
+
+.victory, .end {
+    @include text-stroke($victory-color, .25px, $victory-stroke-color);
+}
+
+.defeat{
+    @include text-stroke($defeat-color, .25px, $defeat-stroke-color);
+}
+
+

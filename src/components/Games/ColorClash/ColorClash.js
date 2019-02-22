@@ -3,9 +3,10 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { getClash, updateScore } from "../../../ducks/reducer";
 import Timer from "./Timer";
-import Victory from './Victory'
-import Defeat from './Defeat'
-import ClashEnd from './ClashEnd'
+import Victory from "./Victory";
+import Defeat from "./Defeat";
+import ClashEnd from "./ClashEnd";
+// const shuffler = require("shuffle-array");
 
 class ColorClash extends Component {
   constructor(props) {
@@ -17,28 +18,13 @@ class ColorClash extends Component {
       questCount: 0,
       correctCount: 0,
       score: 0,
-      mixedClash: props.clash,
-      question: "",
-      answers:[
-          {
-          text:"",
-          boo: false
-          },
-          {
-            text:"",
-            boo: false
-          },
-          {
-            text:"",
-            boo: false
-          }
-      ]
+      mixedClash: props.clash
     };
   }
 
   stopTime = time => {
-    console.log(this.state.score);
-    console.log(time);
+    // console.log(this.state.score);
+    // console.log(time);
     let score = this.state.score;
     this.setState({ score: (score += parseInt(time)) });
   };
@@ -60,16 +46,20 @@ class ColorClash extends Component {
       playerAns: false,
       playerCorrect: false
     });
-
   };
 
   endClash = () => {
     let id = this.props.player.id;
-    let finalScore = Math.floor((this.state.score/5) * this.state.correctCount);
+    let finalScore = Math.floor(
+      (this.state.score / 5) * this.state.correctCount +
+        this.state.correctCount * 100
+    );
     console.log(this.props.player.score);
     if (finalScore > this.props.player.score) {
       this.props.updateScore(id, finalScore);
     }
+
+    this.setState({ questCount: 0 });
     console.log(id);
     console.log(finalScore);
   };
@@ -102,97 +92,91 @@ class ColorClash extends Component {
           <div>
             <h1 className="title">Color Clash</h1>
 
-            <div className="title">
-              <p>CLASH TIME:</p> <Timer stopTime={this.stopTime} />
+            <div>
+              <div className="timer-box">
+                <p className="timer">CLASH TIME:</p>
+                <Timer stopTime={this.stopTime} />
+              </div>
+              
+              <h2 className="subtitle">{quest}</h2>
             </div>
 
-            <h2 className="clashQuest">{quest}</h2>
-
-            <div>
-              <button onClick={() => this.answer(true)}>
-                <h4 className="clashAnswer">{answer}</h4>
-              </button>
-              <button>
-                <h4 className="clashAnswer" onClick={() => this.answer(false)}>
+            <div className="ans-box">
+              <div className="ans1 ans" onClick={() => this.answer(true)}>
+                <p >{answer}</p>
+              </div>
+              <div className="ans2 ans" onClick={() => this.answer(false)}>
+                <p  >
                   {wrong1}
-                </h4>
-              </button>
-              <button>
-                <h4 className="clashAnswer" onClick={() => this.answer(false)}>
+                </p>
+              </div>
+              <div className="ans3 ans" onClick={() => this.answer(false)}>
+                <p >
                   {wrong2}
-                </h4>
-              </button>
-              <div>
-                <Link to="/games">
-                  <button className="btn backbtn">Surrender</button>
-                </Link>
+                </p>
               </div>
             </div>
 
             <div className="dash">
-          <div className="btn1">
-            <Link to="/games">
-              <button />
-            </Link>
-          </div>
+              <div className="btn1">
+                <Link to="/games">
+                  <button />
+                </Link>
+              </div>
 
-          <div className="btn-key-screen">
-            <div className="key-box">
-              <div className="key-holder">
-                <div className="btn1-key key" />
-                <p>SURRENDER</p>
+              <div className="btn-key-screen">
+                <div className="key-box">
+                  <div className="key-holder">
+                    <div className="btn1-key key" />
+                    <p>SURRENDER</p>
+                  </div>
+                  <div className="key-holder">
+                    <div className="btn2-key key" />
+                    <p>ONE </p>
+                  </div>
+                  <div className="key-holder">
+                    <div className="btn3-key key" />
+                    <p>TWO</p>
+                  </div>
+                  <div className="key-holder">
+                    <div className="btn4-key key" />
+                    <p>THREE</p>
+                  </div>
+                </div>
               </div>
-              <div className="key-holder">
-                <div className="btn2-key key" />
-                <p>ONE </p>
-              </div>
-              <div className="key-holder">
-                <div className="btn3-key key" />
-                <p>TWO</p>
-              </div>
-              <div className="key-holder">
-                <div className="btn4-key key" />
-                <p>THREE</p>
+
+              <div className="rigthbtn">
+                <div className="btn2">
+                  <button />
+                </div>
+
+                <div className="bottombtn">
+                  <button className="btn3" />
+                  <button className="btn4" />
+                </div>
               </div>
             </div>
-          </div>
-
-          <div className="rigthbtn">
-            <div className="btn2"> 
-              <button />
-            </div>
-
-            <div className="bottombtn">
-              <button className="btn3" />
-              <button className="btn4" />
-            </div>
-          </div>
-        </div>
-
           </div>
         ) : //PLAYER ANSWERED QUESTION CORRECTLY
         this.state.playerAns &&
           this.state.playerCorrect &&
           this.state.questCount < 5 ? (
-
-            <Victory next = {this.next}/>
-
+          <Victory next={this.next} />
         ) : //PLAYER ANSWERED QUESTION INCORRECTLY
         this.state.playerAns &&
           !this.state.playerCorrect &&
           this.state.questCount < 5 ? (
-
-          <Defeat next = {this.next}/>
-
+          <Defeat next={this.next} />
         ) : (
           //END OF GAME
-          <ClashEnd salvage={Math.floor((this.state.score / 5)*this.state.correctCount)} end={this.endClash}/>
+          <ClashEnd
+            salvage={Math.floor(
+              (this.state.score / 5) * this.state.correctCount +
+                this.state.correctCount * 100
+            )}
+            end={this.endClash}
+          />
         )}
-
-        
-
-
-
       </div>
     );
   }

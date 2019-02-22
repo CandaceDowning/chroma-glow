@@ -4,8 +4,8 @@ const { json } = require("body-parser");
 const session = require("express-session");
 const massive = require("massive");
 const app = express();
-const { signup, login, getPlayer, logout } = require("./authController");
-const { getClash, updateScore } = require("./gameController");
+const { signup, login, getPlayer, logout , deletePlayer} = require("./authController");
+const { getClash, updateScore, updateLuck } = require("./gameController");
 
 app.use(json());
 
@@ -32,11 +32,12 @@ app.post("/auth/signup", signup);
 app.post("/auth/login", login);
 app.post("/auth/logout", logout);
 app.get("/auth/getplayer", getPlayer);
-// app.delete('/aut/deleteplayer', deletePlayer)
+app.delete('/auth/deleteplayer', deletePlayer)
 
 //game data endpoints
 app.get("/game/clash", getClash);
 app.put("/game/score", updateScore);
+app.put('/game/luck', updateLuck)
 
 //server port
 app.listen(process.env.EXPRESS_PORT, () => {

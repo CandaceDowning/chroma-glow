@@ -5,7 +5,7 @@ export default class Defeat extends Component {
   render() {
     return (
       <div>
-        <h1 className="title">DEFEAT</h1>
+        <h1 className="defeat">DEFEAT</h1>
 
         <div className="dash">
           <div className="btn1">

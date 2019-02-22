@@ -30,7 +30,7 @@ export default class Timer extends Component {
     }, 10)
    
     return(
-        <div>
+        <div className="timer">
             {this.state.time}
         </div>
     )

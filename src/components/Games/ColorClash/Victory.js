@@ -5,7 +5,7 @@ export default class Victory extends Component {
   render() {
     return (
       <div>
-        <h1 className="title">VICTORY</h1>
+        <h1 className="victory">VICTORY</h1>
 
         <div className="dash">
           <div className="btn1">

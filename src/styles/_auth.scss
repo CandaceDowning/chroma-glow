@@ -3,7 +3,7 @@
     position:fixed;
     text-align: center;
     background: $modal-bg-color;
-    box-shadow: 0px 0px 30px $screen-glow-color;
+    @include box-glow-shadow($screen-glow-color);
     border-radius: 10px;
     width: 50vw;
     height: auto;

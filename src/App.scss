@@ -2,6 +2,9 @@
 @import "./styles/landing";
 @import "./styles/auth";
 @import "./styles/game-landing";
+@import "./styles/clash";
+@import './styles/player';
+@import './styles//flash';
 
 //background for all components
 .main {
@@ -22,6 +25,8 @@
   background-color: $dash-color;
   display: flex;
   justify-content: space-around;
+  @include box-glow-shadow(lighten($bg-color, 20%));
+  border-top: .25px solid $title-stroke-color;
 
 
   //left button
@@ -44,11 +49,11 @@
     width: 30vh;
     height: 20vh;
     font-size: 2vh;
-    color: $yellow;
+    color: $label-color;
     font-family: $label-font;
     font-size: 80%;
     margin: auto 5vw auto 5vw;
-    box-shadow: 0px 0px 15px $screen-glow-color;
+    @include box-glow-shadow($screen-glow-color);
     @include border-radius(10%);
 
     .key-box{
@@ -86,6 +91,7 @@
   }
   .rigthbtn {
     width: 30.5vw;
+    margin-top: 1vh;
     .btn2 {
       button {
         @include arcade-button(2px, $btn2-color, $btn-glow-color, 47%, 47%);
@@ -107,28 +113,50 @@
   font-size: 10vh;
   font-family: $title-font;
   @include text-stroke($title-stroke-color, 0.25px, $title-color);
-  @include glow-shadow($yellow);
+  @include text-glow-shadow($yellow);
 }
 
+.subtitle {
+  color: $subtitle-color;
+  font-family: $subtitle-font;
+  font-size: 4vh;
+  @include text-glow-shadow($screen-glow-color);
+}
 
 //BASIC CODE FOR THE DASHBOARD
 
 // <div className="dash">
-
 //           <div className="btn1">
-//             <button/>
+//             <Link to="/player">
+//               <button />
+//             </Link>
 //           </div>
-
-//           <div className='btn-key-screen'>
-//             <div className='key-holder'><div className='btn1-key key'></div><p> placeholder</p></div>
-//             <div className='key-holder'><div className='btn2-key key'></div><p> placeholder</p></div>
-//             <div className='key-holder'><div className='btn3-key key'></div><p> placeholder</p></div>
-//             <div className='key-holder'><div className='btn4-key key'></div><p> placeholder</p></div>
+//           <div className="btn-key-screen">
+//             <div className="key-box">
+//               <div className="key-holder">
+//                 <div className="btn1-key key" />
+//                 <p>COMMAND CONSOLE</p>
+//               </div>
+//               <div className="key-holder">
+//                 <div className="btn2-key key" />
+//                 <p>COLOR CLASH </p>
+//               </div>
+//               <div className="key-holder">
+//                 <div className="btn3-key key" />
+//                 <p>FLASH TRAINER</p>
+//               </div>
+//               <div className="key-holder">
+//                 <div className="btn4-key key" />
+//                 <p>SPECTRAL ANALYSIS</p>
+//               </div>
+//             </div>
 //           </div>
 
 //           <div className="rigthbtn">
 //             <div className="btn2">
-//               <button/>
+//               <Link to="/games/clash">
+//                 <button />
+//               </Link>
 //             </div>
 
 //             <div className="bottombtn">

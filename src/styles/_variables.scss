@@ -4,11 +4,7 @@
 @import url('https://fonts.googleapis.com/css?family=Press+Start+2P');
 
 
-//font variables
 
-$title-font: 'Audiowide', cursive;
-$subtitle-font: 'Press Start 2P', cursive;
-$label-font: 'Audiowide', cursive;
 
 //color variables
 $red: #c81139;
@@ -17,18 +13,23 @@ $green: #28f9fc;
 $blue: #5c6bfe;
 $purple: #e006e7;
 
+//font variables
+$title-font: 'Audiowide', cursive;
+$subtitle-font: 'Press Start 2P', cursive;
+$label-font: 'Audiowide', cursive;
+
+
+//global variables
 $bg-color: #1b0025;
-
-$dash-color: #24023b;
-
 $title-stroke-color: $green;
 $title-color: $yellow;
-
-
+$subtitle-color: $green;
+$label-color: $yellow;
 
 
 
 //dash button variables
+$dash-color: #24023b;
 $btn1-color: $red;
 $btn2-color: darken($green, 15%);
 $btn3-color: $blue;
@@ -42,6 +43,19 @@ $auth-btn-color: $blue;
 $modal-bg-color: darken($purple, 20%);
 $input-bg-color: lighten($bg-color, 5%);
 
+//clash game variables
+$victory-color: $purple;
+$victory-stroke-color: $green;
+$defeat-color: lighten($bg-color, 5%);
+$defeat-stroke-color: $red;
+
+//flashcard varables
+$question-text-color: $green;
+$question-stroke-color: $purple;
+$question-bg-color: $blue;
+$answer-text-color: $blue;
+$answer-stroke-color: $purple;
+$answer-bg-color: $green;
 
 
   //styles border radius for all browsers
@@ -51,6 +65,17 @@ $input-bg-color: lighten($bg-color, 5%);
     -ms-border-radius: $radius;
     border-radius: $radius;
   }
+
+  //drop shadow for text
+  @mixin text-glow-shadow($color) {
+    text-shadow: 0px 0px 20px $color;
+  }
+
+  @mixin box-glow-shadow($color){
+    box-shadow: 0px 0px 30px $color;
+  }
+
+
 
 
 //styles buttons allowing for different direction drop shadow, button color, shadow color, and gradient direction
@@ -69,13 +94,8 @@ $input-bg-color: lighten($bg-color, 5%);
   }
 
 
-  //drop shadow for text
-  @mixin glow-shadow($color) {
-    text-shadow: 0px 0px 20px $color;
-  }
+
   
-
-
 
   //fill color for text using stroke for all web browsers 
   @mixin fill-color($color) {
@@ -103,5 +123,4 @@ $input-bg-color: lighten($bg-color, 5%);
     @include fill-color($fill-color);
     @include stroke-width($width);
     @include stroke-color($stroke-color)
-
 }
