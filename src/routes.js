@@ -4,18 +4,31 @@ import Landing from './components/Landing'
 import Player from './components/Player/Player'
 import GameLanding from './components/Games/GameLanding'
 import ColorClash from './components/Games/ColorClash/ColorClash'
+import ClashLanding from './components/Games/ColorClash/ClashLanding'
 import FlashTrainer from './components/Games/FlashTrainer/FlashTrainer'
-// import SpecWave from './components/Games/SpecWave'
-// import Flashmaster from './components/Games/FlashMaster'
+import FlashLanding from './components/Games/FlashTrainer/FlashLanding'
+import SpecWave from './components/Games/SpecWave/SpecWave'
+import Calibrate from './components/Games/SpecWave/Calibrate'
+import Scanner from './components/Player/Scanner'
+import DonateChart from './components/Player/DonateChart'
+import Log from './components/Player/Log'
+import ShipsFunction from './components/Player/ShipsFunction';
 
 
 export default(
     <Switch>
         <Route exact path = '/' component = {Landing}/>
-        <Route path = '/player' component = {Player}/>
+        <Route exact path = '/player' component = {Player}/>
         <Route exact path = '/games' component = {GameLanding}/>
-        <Route path = '/games/clash' component = {ColorClash}/>
+        <Route exact path = '/games/clash' component = {ColorClash}/>
+        <Route path= '/games/clashland' component = {ClashLanding}/>
+        <Route path = '/games/flashland' component = {FlashLanding}/>
         <Route path = '/games/flash' component = {FlashTrainer}/>
-        {/* <Route path = '/games/spectralwave' component = {SpecWave}/> */}
+        <Route path = '/games/specwave' component = {SpecWave}/>
+        <Route path = '/games/calibrate' component = {Calibrate}/>
+        <Route path = '/player/scanner' component = {Scanner}/>
+        <Route path = '/player/donate' component = {DonateChart}/>
+        <Route path = '/player/log' component = {Log}/>
+        <Route path = '/player/ship' component = {ShipsFunction}/>
     </Switch>
 )

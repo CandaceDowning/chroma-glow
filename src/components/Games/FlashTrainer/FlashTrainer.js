@@ -1,6 +1,7 @@
 import React, { Component} from 'react';
 import { connect } from "react-redux";
 import { Link } from 'react-router-dom';
+import { updateLuck } from '../../../ducks/reducer'
 
 class FlashTrainer extends Component{
 
@@ -8,10 +9,9 @@ class FlashTrainer extends Component{
         super(props)
 
         this.state = {
-            thisClash: props.clash,
+            thisFlash: props.flash,
             current: 0,
-            showAns: false,
-            luckAdd: 0
+            showAns: false
         }
     }
 
@@ -24,7 +24,7 @@ class FlashTrainer extends Component{
     }
 
     next = () => {
-        if(this.state.current<=this.state.thisClash.length){
+        if(this.state.current<=this.state.thisFlash.length){
         this.setState({current: this.state.current+1})}
         if(this.state.showAns){this.flip()}
     }
@@ -35,7 +35,22 @@ class FlashTrainer extends Component{
     }
 
     updateLuck = () => {
+    let id = this.props.player.id;
 
+    //generates small random amount of luck, sometimes it is less than current luck
+    let luckGen = Math.random()
+    let luckAdding = luckGen.toFixed(2)
+    let luck =  parseInt(this.props.player.luck)
+    let newLuck = luck+luckAdding/10
+
+    //resets player luck if no answers were correct
+    if(this.state.correctCount === 0){
+      this.props.updateLuck(id, 1)
+    }
+    //updates luck if current newLuck is higher current luck 
+    else if(newLuck > this.props.player.luck){
+    this.props.updateLuck(id, newLuck)
+    }
     }
 
 
@@ -43,16 +58,16 @@ class FlashTrainer extends Component{
     render(){
         console.log(this.state.current)
 
-        const { clash } = this.props;
+        const { flash } = this.props;
 
-        const current = clash.length && this.state.current;
+        const current = flash.length && this.state.current;
     
-        const quest = clash.length && clash[current].question;
-        const answer = clash.length && clash[current].answer;      
+        const quest = flash.length && flash[current].question;
+        const answer = flash.length && flash[current].answer;      
 
         return(
             <div className='main'>
-                <h1 className="title">FLASH TRAINER</h1>
+                <h1 className="flash-title">FLASH TRAINER</h1>
 
                 {!this.state.showAns ?
                     <div className="flashcard question">
@@ -65,9 +80,9 @@ class FlashTrainer extends Component{
 
             
             <div className="dash">
-              <div className="btn1">
+              <div className="leftbtn">
                 <Link to="/games">
-                  <button />
+                  <button className="btn1" onClick={()=>this.updateLuck()}/>
                 </Link>
               </div>
               <div className="btn-key-screen">
@@ -91,8 +106,8 @@ class FlashTrainer extends Component{
                 </div>
               </div>
               <div className="rigthbtn">
-                <div className="btn2">
-                    <button onClick={()=>this.flip()} />
+                <div >
+                    <button className="btn2" onClick={()=>this.flip()} />
                 </div>
                 <div className="bottombtn">
                   <button onClick={()=>{this.last()}} className="btn3" />
@@ -109,5 +124,6 @@ class FlashTrainer extends Component{
 
 const mapStateToProps = state => state;
 export default connect(
-  mapStateToProps
+  mapStateToProps,
+  { updateLuck }
 )(FlashTrainer);

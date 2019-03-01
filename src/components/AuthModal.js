@@ -32,8 +32,8 @@ class AuthModal extends Component {
   //makes call to enter player into db and start session
   handleSignup = e => {
     e.preventDefault();
-    this.props
-      .signup(this.state.playername, this.state.password)
+    let luck = Math.random()+1
+    this.props.signup(this.state.playername, this.state.password, luck)
       .then(res => {
         if (res.value.data) {
           this.props.history.push("/games");
@@ -53,6 +53,7 @@ class AuthModal extends Component {
     return (
       <div className={showHideClassname}>
         <section className="authmodal">
+        <p className = 'auth-title'>PREPARE YOURSELF</p>
           <form className="authform" onSubmit={this.handleLogin}>
             <div className='cursor'>
             <input
@@ -76,18 +77,18 @@ class AuthModal extends Component {
           </form>
           
           <div className='auth-dash'>
-            <div>
-            <button className="modalbtn" onClick={this.handleLogin}/>
+            <div className='authbtnbox'>
+            <div className="modalbtn" onClick={this.handleLogin}/>
             <p className='auth-label'>LOG-IN</p>
             </div>
             
-            <div>
-            <button className="modalbtn" onClick={this.handleSignup}/>
+            <div className='authbtnbox'>
+            <div className="modalbtn" onClick={this.handleSignup}/>
             <p className='auth-label'>SIGN-UP</p>
             </div>
             
-            <div>
-            <button className="modalbtn" onClick={this.props.toggleModal}/>
+            <div className='authbtnbox'>
+            <div className="modalbtn" onClick={this.props.toggleModal}/>
             <p className='auth-label'>GIVE-UP</p>
             </div>
           </div>

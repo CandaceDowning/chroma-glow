@@ -3,18 +3,20 @@ const bcrypt = require("bcryptjs");
 module.exports = {
   signup: async (req, res) => {
     const db = req.app.get("db");
-    const { playername, password } = req.body;
+    const { playername, password, luck } = req.body;
     console.log(req.body);
     const hash = await bcrypt.hash(password, 12);
 
     try {
-      const response = await db.add_player([playername, hash]);
+      const response = await db.add_player([playername, hash, luck ]);
       console.log(response);
       req.session.player = {
         id: response[0].id,
         playername: response[0].playername,
         score: response[0].hi_score,
-        luck: response[0].luck
+        luck: response[0].luck,
+        level: response[0].cal_level,
+        donation: response[0].donation
       };
       res.status(200).json(req.session);
     } catch (error) {
@@ -41,8 +43,11 @@ module.exports = {
           // console.log(response[0].playername);
           req.session.player = {
             id: response[0].id,
-            playername: response[0].playername ,
-            score: response[0].hi_score
+            playername: response[0].playername,
+            score: response[0].hi_score,
+            luck: response[0].luck,
+            level: response[0].cal_level, 
+            donation: response[0].donation
           };
           console.log(req.session);
           res.json(req.session.player);
@@ -53,12 +58,14 @@ module.exports = {
 
   deletePlayer: (req, res) =>{
     const db = req.app.get("db");
-    const { id } = req.body
+    const { id } = req.params
+    console.log(req.params)
 
     db.delete_player(id)
     .then(()=>{
+      console.log(id)
       req.session.destroy();
-      res.status(200).json(req.session)
+      res.status(200).json()
     })   
   },
 

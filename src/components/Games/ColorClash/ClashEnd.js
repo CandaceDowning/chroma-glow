@@ -6,12 +6,12 @@ export default class ClashEnd extends Component {
   render() {
     return (
       <div>
-        <h1 className="end">Salvage: {this.props.salvage}</h1>
+        <h1 className="end">Salvage: <br></br>{this.props.salvage}</h1>
 
         <div className="dash">
-          <div className="btn1">
+          <div className="leftbtn">
             <Link to="/games">
-              <button />
+              <button className="btn1"/>
             </Link>
           </div>
 
@@ -37,9 +37,9 @@ export default class ClashEnd extends Component {
           </div>
 
           <div className="rigthbtn">
-            <div className="btn2">
+            <div >
               <Link to="/games">
-                <button onClick={()=>this.props.end()} />
+                <button className="btn2" onClick={()=>this.props.end()} />
               </Link>
             </div>
 

@@ -1,29 +1,32 @@
+//holding delete account, reset calibration
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { getPlayer, getFlash, getDecoy } from "../../ducks/reducer";
 import Escape from "../Escape";
+import DestructModal from "./DestructModal";
 
-class GameLanding extends Component {
-  //sets up player stats and game data
-  componentDidMount() { 
-      this.props.getFlash();
-      this.props.getPlayer();
-      this.props.getDecoy();
-      console.log(this.props.player);
-
-      if (!this.props.player.length) {
-        return <Redirect push to="/" />;
+class ShipsFunctions extends Component {
+    constructor() {
+        super();
+    
+        this.state = {
+          show: false
+        };
       }
-  }
 
-  
+      toggleModal = e => {
+        this.setState({ show: !this.state.show });
+        console.log(this.props.player.id)
+      };
+
+
   render() {
     return (
       <div className="main">
         {this.props.player.playername ? (
           <div className="gamelanding">
-            <h1 className="nav-title">NAVIGATION</h1>
+            <h1 className="ship-title">SHIPS FUNCTIONS</h1>
             <div className="dash">
               <div className="leftbtn">
                 <Link to="/player">
@@ -38,28 +41,28 @@ class GameLanding extends Component {
                   </div>
                   <div className="key-holder">
                     <div className="btn2-key key" />
-                    <p>COLOR CLASH </p>
+                    <p>LOG OUT</p>
                   </div>
                   <div className="key-holder">
                     <div className="btn3-key key" />
-                    <p>FLASH TRAINER</p>
+                    <p>RESET CALIBRATION</p>
                   </div>
                   <div className="key-holder">
                     <div className="btn4-key key" />
-                    <p>SPECTRAL WAVE</p>
+                    <p>SELF DESTRUCT</p>
                   </div>
                 </div>
               </div>
               <div className="rigthbtn">
                 <div >
-                  <Link to="/games/clashland">
-                    <button className="btn2"/>
+                  <Link to="/">
+                    <button className="btn2" onClick={this.props.logout}/>
                   </Link>
                 </div>
 
                 <div className="bottombtn">
-                  <Link to='/games/flashland'><button className="btn3" /></Link>
-                  <Link to='/games/specwave'><button className="btn4" /></Link>
+                  <Link to='/games/log'><button className="btn3"/></Link>
+                  <button className="btn4" onClick={()=>this.toggleModal()} />
                 </div>
               </div>
             </div>
@@ -69,6 +72,12 @@ class GameLanding extends Component {
             <Escape />
           </div>
         )}
+
+        <div>
+          <DestructModal show={this.state.show} toggle={this.toggleModal} />
+        </div>
+
+
       </div>
     );
   }
@@ -78,4 +87,4 @@ const mapStateToProps = state => state;
 export default connect(
   mapStateToProps,
   { getPlayer, getFlash, getDecoy }
-)(GameLanding);
+)(ShipsFunctions);

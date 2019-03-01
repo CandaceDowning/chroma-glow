@@ -1,0 +1,130 @@
+//styling for specwave landing
+
+.cal-title{
+    @include title($title-stroke-color, $title-color);
+    font-size: 9vw;
+}
+
+@media(min-width: 600px){
+    .cal-title{
+        font-size: 6vh;
+    }
+}
+
+.cal-subtitle{
+        @include subtitle($subtitle-color, 5vw);
+        margin: 10vh 4vw;
+        
+}
+
+@media(min-width: 600px){
+    .cal-subtitle{
+        font-size: 4vw;
+    }
+}
+@media(min-width: 1000px){
+    .cal-subtitle{
+        font-size: 3vw;
+    }
+}
+
+
+//styling for calibration and scanner component 
+.outer{
+    height:100vh;
+    width:100vw;
+    background-color: $outer-color;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    @include border-radius(40px);
+    box-shadow: 0 0 0 3vh $bg-color;
+
+    .display{
+        height:85vh;
+        width: 73vw;
+        display: flex;
+        border: 2vw solid;
+        border-color: darken($inner-color, 20%) $inner-color;
+        box-shadow: 0 0 0 3vh $outer-color;
+        margin: 0 0 0 1vw;
+        @include border-radius(.8em);
+        background-color: $bg-color;
+        .wave{
+            height: 85vh;
+            width: 50vw;
+        }
+        @media(min-width:800px){
+            .wave{
+                height:80vh;
+                width: 50vw;
+            }
+        }
+    }
+
+    @media(min-width:900px){
+        .display{
+            height:85vh;
+            width: 80vw;
+            margin: 0 1vh;
+        }
+    }
+
+
+    .control{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        height:60vh;
+        margin: 10vh 1vw 30vh 1.5vw;
+        
+        .btnpanel{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: $label-font;
+            color: $cal-label-color;
+            font-size: 2.5vw;
+            .calbtn1 {
+                @include arcade-button(-1.5px, $btn1-color, $btn-glow-color, 52%, 47%);
+            }
+            .calbtn1:hover {
+                @include arcade-button(-1.5px, lighten($btn1-color, 10%), $btn-glow-color, 52%, 47%);
+            }
+            .calbtn2 {
+                @include arcade-button(-1.5px, $btn2-color, $btn-glow-color, 52%, 47%);
+            }
+            .calbtn2:hover {
+                @include arcade-button(-1.5px, lighten($btn2-color, 10%), $btn-glow-color, 52%, 47%);
+            }
+        }
+
+        @media(min-width:800px){
+            .btnpanel{
+                font-size: 2vh;
+            }
+        }
+        .light{
+            width: 6vw;
+            height: 6vw;
+            @include border-radius(50%);
+        }
+
+        @media(min-width: 800px){
+            .light{
+                width: 6vh;
+                height: 6vh;
+            }
+        }
+        .l1{
+            @include cal-light-gradient($btn2-color);
+        }
+        .l2{
+            @include cal-light-gradient($btn3-color);
+        }
+        .l3{
+            @include cal-light-gradient($btn4-color);
+        }
+    }
+}

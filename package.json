@@ -3,15 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/tinycolor2": "^1.4.1",
     "axios": "^0.18.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
+    "chart.js": "^2.7.3",
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "express-session": "^1.15.6",
     "massive": "^5.7.5",
     "node-sass": "^4.11.0",
     "react": "^16.8.1",
+    "react-chartjs-2": "^2.7.4",
     "react-dom": "^16.8.1",
     "react-redux": "^6.0.0",
     "react-router-dom": "^4.3.1",
@@ -20,7 +23,9 @@
     "redux-promise-middleware": "^6.0.1",
     "shuffle-array": "^1.0.1",
     "socket.io": "^2.2.0",
-    "socket.io-client": "^2.2.0"
+    "socket.io-client": "^2.2.0",
+    "tinycolor": "0.0.1",
+    "tinygradient": "^1.0.0"
   },
   "scripts": {
     "start": "react-scripts start",

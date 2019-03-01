@@ -1,17 +1,49 @@
+.flash-title{
+
+        @include title ($title-stroke-color, $title-color);
+        font-size: 15vw;  
+}
+
+@media(min-width: 600px){
+    .flash-title{
+        font-size: 9vh;
+    }
+}
+
+.flash-subtitle{
+    @include subtitle($subtitle-color, 5vw);
+    margin: 10vh 4vw;
+}
+@media(min-width: 600px){
+    .flash-subtitle{
+        font-size: 4vw;
+    }
+}
+@media(min-width: 1000px){
+    .flash-subtitle{
+        font-size: 3vw;
+    }
+}
 .flashcard{
     display:flex;
     justify-content: center;
 	align-items: center;
-    width: 60vw;
-    height: 25vh;
-    margin: 10vw auto 30vw auto;
-    font-family: $subtitle-font;
-    font-size: 3vh;
+    width: 70vw;
+    height: 40vh;
+    margin: 10vh auto 30vh auto;
+    font-family: $label-font;
+    font-size: 7vw;
     @include border-radius(10px);
     @include box-glow-shadow($screen-glow-color);
     p{
-        margin: 5vw;
+        margin: 4vw;
         line-height: 4vh
+    }
+}
+
+@media(min-width:550px){
+    .flashcard{
+        font-size: 4vh;
     }
 }
 

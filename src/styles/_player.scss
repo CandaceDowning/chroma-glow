@@ -1,22 +1,134 @@
 .player-title{
-    margin: 0;
-    font-size: 7vh;
-    font-family: $title-font;
-    @include text-stroke($title-stroke-color, 0.25px, $title-color);
-    @include text-glow-shadow($yellow);
+@include title($title-stroke-color, $title-color);
+font-size: 10vw;
 }
 
+@media(min-width:400px){
+  .player-title{
+      font-size: 4vh;
+  }
+}
 
-.salvage{
-        color: $subtitle-color;
+@media(min-width:500px){
+  .player-title{
+      font-size: 5vh;
+  }
+}
+
+.ship-title{
+  @include title($title-stroke-color, $title-color);
+  font-size: 10vw;
+  }
+  
+  
+  @media(min-width:500px){
+    .ship-title{
+        font-size: 7vh;
+    }
+  }
+
+
+
+.stats{
+    display: flex;
+    justify-content: space-around;
+    color: $subtitle-color;
     font-family: $subtitle-font;
+    margin: 1vw 3vw;
 
-    @include text-glow-shadow($screen-glow-color);
-    h1{
-    font-size: 7vh;
-    }
-    p{
-    font-size: 4vh;
+        @include text-glow-shadow($screen-glow-color);
+        h3{
+        font-size: 2.5vw;
+        }
+        p{
+        font-size: 4vw;
+        }
     }
 
-}
+    @media(min-width:800px){
+      .stats{
+        h3{
+          font-size: 2vh;
+        }
+        p{
+          font-size: 3vh;
+        }
+      }
+    }
+
+
+    .destructmodal {
+        position:fixed;
+        text-align: center;
+        background: $modal-bg-color;
+        @include box-glow-shadow($screen-glow-color);
+        border-radius: 10px;
+        width: 75vw;
+        height: auto;
+        top:42%;
+        left:50%;
+        transform: translate(-50%,-50%);
+      }
+
+      .destruct-title{
+        @include subtitle ($subtitle-color, 5vw);
+          margin:3vh 2vh;
+      }
+
+      @media(min-width:750px){
+        .destruct-title{
+          @include subtitle ($subtitle-color, 5vh);
+        }
+      }
+    
+      
+      .deletebtn{
+        @include arcade-button(0px, $btn1-color, $btn-glow-color, 50%, 50%);
+        margin: 3vh 0 0 0 !important;
+      }
+      .deletebtn:hover {
+        @include arcade-button(-1.5px, lighten($btn1-color, 10%), $btn-glow-color, 50%, 50%);
+        margin: 3vh 0 0 0 !important;
+      }
+      
+      .backbtn{
+        @include arcade-button(0px, $btn2-color, $btn-glow-color, 50%, 50%);
+        margin: 3vh 0 0 0 !important;
+      }
+      .backbtn:hover {
+        @include arcade-button(-1.5px, lighten($btn2-color, 10%), $btn-glow-color, 50%, 50%);
+        margin: 3vh 0 0 0 !important;
+      }
+    
+      .destruct-dash{
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+          align-content: center;
+    
+        .destructbtnbox{
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          width: 30vw;
+        }
+        .destruct-label{
+          @include text-stroke($title-stroke-color, 1px, darken($auth-btn-color, 10%));
+            // color:$modal-text-color;
+
+            width: 30vw;
+            padding: 2vw;
+            font-family: $label-font;
+            font-size: 6vw;
+        }
+
+        @media(min-width:500px){
+          .destruct-label{
+            width: 30vh;
+            font-size: 4vh;
+          }
+        }
+      }
+    
+      

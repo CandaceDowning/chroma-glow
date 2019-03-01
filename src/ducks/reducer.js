@@ -1,7 +1,12 @@
 import axios from 'axios';
+
 const initialState = {
     player: {},
-    clash:{},
+    flash:{},
+    decoy:{},
+    rank:{},
+    stats:{},
+    donate:{},
     error:""
 }
 
@@ -15,9 +20,13 @@ const DELETE_PLAYER = 'DELETE_PLAYER';
 
 
 //game action variable declaration
-const GET_CLASH = 'GET_CLASH'
+const GET_FLASH = 'GET_FLASH'
+const GET_DECOY = 'GET_DECOY'
 const UPDATE_SCORE = 'UPDATE_SCORE'
 const UPDATE_LUCK = 'UPDATE_LUCK'
+const GET_RANK = 'GET_RANK'
+const GET_STATS = 'GET_STATS'
+const GET_DONATE = 'GET_DONATE'
 
 
 //action creators
@@ -49,17 +58,24 @@ export function logout(){
     }
 };
 
-export function deletePlayer(){
+export function deletePlayer(id){
     return{
         type: DELETE_PLAYER,
-        payload: axios.delete('/auth/deleteplayer')
+        payload: axios.delete(`/auth/deleteplayer/${id}`)
     }
 };
 
-export function getClash(){
+export function getFlash(){
     return{
-        type: GET_CLASH,
-        payload: axios.get('/game/clash')
+        type: GET_FLASH,
+        payload: axios.get('/game/flash')
+    }
+}
+
+export function getDecoy(){
+    return{
+        type: GET_DECOY,
+        payload: axios.get('/game/decoy')
     }
 }
 
@@ -74,6 +90,25 @@ export function updateLuck(id, luck){
     return{
         type: UPDATE_LUCK,
         payload: axios.put('/game/luck', {id, luck})
+    }
+};
+
+export function getRank(){
+    return{
+        type: GET_RANK,
+        payload: axios.get('/game/rank')
+    }
+};
+export function getStats(){
+    return{
+        type: GET_STATS,
+        payload: axios.get('/game/stats')
+    }
+};
+export function getDonate(){
+    return{
+        type: GET_DONATE,
+        payload: axios.get('/game/donaterank')
     }
 };
 
@@ -118,15 +153,35 @@ export default function reducer(state=initialState, action){
             ...state,
             player: action.payload.data
         };
-        case `${GET_CLASH}_FULFILLED`:
+        case `${GET_FLASH}_FULFILLED`:
         return {
             ...state,
-            clash: action.payload.data
+            flash: action.payload.data
+        };
+        case `${GET_DECOY}_FULFILLED`:
+        return {
+            ...state,
+            decoy: action.payload.data
         };
         case `${UPDATE_SCORE}_FULFILLED`:
         return{
             ...state,
             player: action.payload.data
+        };
+        case `${GET_RANK}_FULFILLED`:
+        return{
+            ...state,
+            rank: action.payload.data
+        };
+        case `${GET_STATS}_FULFILLED`:
+        return{
+            ...state,
+            stats: action.payload.data
+        };
+        case `${GET_DONATE}_FULFILLED`:
+        return{
+            ...state,
+            donate: action.payload.data
         };
         default:
         return state;

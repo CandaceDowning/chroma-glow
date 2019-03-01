@@ -5,14 +5,26 @@
     background: $modal-bg-color;
     @include box-glow-shadow($screen-glow-color);
     border-radius: 10px;
-    width: 50vw;
+    width: 70vw;
     height: auto;
     top:42%;
     left:50%;
     transform: translate(-50%,-50%);
   }
   
-  
+  .auth-title{
+    margin:3vw 2vh;
+    line-height: 5.5vh;
+    @include subtitle($subtitle-color, 6vw)
+  }
+  @media(min-width: 800px){
+    .auth-title{
+      margin:3vh 2vh;
+      line-height: 7vh;
+      @include subtitle($subtitle-color, 6vh)
+    }
+  }
+
   .modalmain {
     position: fixed;
     top: 0;
@@ -38,7 +50,11 @@
   
   .modalbtn{
     @include arcade-button(0px, $auth-btn-color, $btn-glow-color, 50%, 50%);
-    margin: 3vh 0 0 0;
+    margin: 3vh 0 0 0 !important;
+  }
+  .modalbtn:hover {
+    @include arcade-button(-1.5px, lighten($auth-btn-color, 10%), $btn-glow-color, 50%, 50%);
+    margin: 3vh 0 0 0 !important;
   }
   
   .modalblock {
@@ -55,8 +71,14 @@
       align-items: center;
       align-content: center;
 
-    p{
-      @include text-stroke($title-stroke-color, 0.25px, $screen-glow-color);
+    .authbtnbox{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .auth-label{
+      @include text-stroke($title-stroke-color, 1.5px, darken($auth-btn-color, 10%));
         // color:$modal-text-color;
         white-space: nowrap;
         width: 12vw;

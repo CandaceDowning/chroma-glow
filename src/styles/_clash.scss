@@ -1,3 +1,31 @@
+.clash-title{
+    @include title($title-stroke-color, $title-color);
+    font-size: 9vw;
+}
+
+@media(min-width: 600px){
+    .clash-title{
+        font-size: 6vh;
+    }
+}
+
+.clash-subtitle{
+        @include subtitle($subtitle-color, 5vw);
+        margin: 10vh 4vw;
+        
+}
+
+@media(min-width: 600px){
+    .clash-subtitle{
+        font-size: 4vw;
+    }
+}
+@media(min-width: 1000px){
+    .clash-subtitle{
+        font-size: 3vw;
+    }
+}
+
 .timer-box{
     margin: 1vh;
     .timer{
@@ -8,13 +36,23 @@
     @include text-glow-shadow($screen-glow-color)
     }
 }
+.vocab{
+    @include subtitle($subtitle-color, 6vw)
+}
 
+@media(min-width: 800px){
+    .vocab{
+        @include subtitle($subtitle-color, 5vh)
+    }
+}
 
 .ans-box{
     display: flex;
+    flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    margin: 5vh 0 0 0;
+    height: 55vh;
+
 
     .ans{ 
         p{
@@ -22,10 +60,10 @@
         }
     display: flex;
     align-items: center;
-    width: 25vw;
-    height: 17vw;
+    width: 40vw;
+    height: 13vh;
     font-family: $label-font;
-    font-size: 2vw;
+    font-size: 3vw;
 
     @include border-radius(10px);
     @include box-glow-shadow(darken($screen-glow-color, 40%)); 
@@ -34,22 +72,48 @@
     
    .ans1{
        background-color: darken($btn2-color, 10%);
-       margin-left: 2vw;
    }
    
    .ans2{
-    background-color: darken($btn3-color, 10%);
+        background-color: darken($btn3-color, 10%);
     }
     .ans3{
         background-color: darken($btn4-color, 10%);
-        margin-right: 2vw;
+    }
+
+    @media(min-width: 500px){
+        .ans{
+        display: flex;
+        align-items: center;
+        width: 30vw;
+        height: 30vh;
+        font-family: $label-font;
+        font-size: 3.2vw;
+        }
+    }
+
+    @media(min-width: 800px){
+        .ans{
+            font-size: 3vh;
+        }
     }
 
 }
 
+@media(min-width: 500px){
+    .ans-box{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        height: 40vh;
+        width: 100vw;
+    }
+}
+
 .victory, .defeat, .end{
     margin: 25vh 0 0 0;
-    font-size: 15vh;
+    font-size: 15vw;
     font-family: $title-font;    
     @include text-glow-shadow($screen-glow-color);
 }
@@ -57,9 +121,15 @@
 .victory, .end {
     @include text-stroke($victory-color, .25px, $victory-stroke-color);
 }
+@media(min-width: 800px){
+    .end{
+        font-size: 13.2vh;
+    }
+}
 
 .defeat{
     @include text-stroke($defeat-color, .25px, $defeat-stroke-color);
 }
+
 
 

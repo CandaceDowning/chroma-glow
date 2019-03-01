@@ -4,7 +4,8 @@
 @import "./styles/game-landing";
 @import "./styles/clash";
 @import './styles/player';
-@import './styles//flash';
+@import './styles/flash';
+@import './styles/specwave';
 
 //background for all components
 .main {
@@ -30,15 +31,20 @@
 
 
   //left button
-  .btn1 {
+  .leftbtn {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 30vw;
-    button {
+    .btn1 {
       @include arcade-button(-1.5px, $btn1-color, $btn-glow-color, 52%, 47%);
     }
+    .btn1:hover {
+      @include arcade-button(-1.5px, lighten($btn1-color, 10%), $btn-glow-color, 52%, 47%);
+    }
   }
+
+
 
   //screen between buttons that displays key if neccesary
   .btn-key-screen {
@@ -46,12 +52,11 @@
     flex-direction: column;
     justify-content: space-around;
     background-color: $bg-color;
-    width: 30vh;
-    height: 20vh;
-    font-size: 2vh;
+    width: 30vw;
+    height: 20vw;
+    font-size: 1.2vw;
     color: $label-color;
     font-family: $label-font;
-    font-size: 80%;
     margin: auto 5vw auto 5vw;
     @include box-glow-shadow($screen-glow-color);
     @include border-radius(10%);
@@ -61,15 +66,26 @@
       display: flex;
       flex-direction: column;
 
+
     .key-holder {
       display: flex;
       align-items: center;
-      margin: 1vh 2vh 1vh 1.5vh;
+      margin: 1vw 2vh 1vw 1.5vh;
       .key {
-        margin: 1vh;
+        float: left;
+        margin: 1vw .5vw;
+        width: 1vw;
+        height: 1vw;
+        min-width: .75em;
+        min-height: .75em;
+        @include border-radius(50%)
+      }
+      @media(min-width: 700px){
+        .key{
         width: 1vh;
         height: 1vh;
-        @include border-radius(50%)
+        font-size: 1.2vh
+        }
       }
 
       .btn1-key {
@@ -85,43 +101,61 @@
       .btn4-key {
         background-color: $btn4-color;
       }
-     
       }
+
+
+      // @media(min-width:700px){
+      //   .key-holder{
+
+      //   }
+      // }
     }
   }
   .rigthbtn {
     width: 30.5vw;
     margin-top: 1vh;
-    .btn2 {
-      button {
+
+      .btn2 {
         @include arcade-button(2px, $btn2-color, $btn-glow-color, 47%, 47%);
       }
-    }
+      .btn2:hover {
+        @include arcade-button(2px, lighten($btn2-color, 10%), $btn-glow-color, 47%, 47%);
+      }
+
     .btn3 {
       @include arcade-button(2px, $btn3-color, $btn-glow-color, 47%, 47%);
+      margin-right: 5vw;
+    }
+    .btn3:hover {
+      @include arcade-button(2px, lighten($btn3-color, 10%), $btn-glow-color, 47%, 47%);
       margin-right: 5vw;
     }
     .btn4 {
       @include arcade-button(2px, $btn4-color, $btn-glow-color, 47%, 47%);
     }
+    .btn4:hover {
+      @include arcade-button(2px, lighten($btn4-color, 10%), $btn-glow-color, 47%, 47%);
+    }
+  }
+
+  @media(min-width: 700px){
+    .btn-key-screen{
+    width: 30vh;
+    height: 20vh;
+    font-size: 1.5vh
+    
+    }
   }
 }
 
+
+
 //Game title styling
 .title {
-  margin: 0;
-  font-size: 10vh;
-  font-family: $title-font;
-  @include text-stroke($title-stroke-color, 0.25px, $title-color);
-  @include text-glow-shadow($yellow);
+@include title($title-stroke-color, $title-color)
 }
 
-.subtitle {
-  color: $subtitle-color;
-  font-family: $subtitle-font;
-  font-size: 4vh;
-  @include text-glow-shadow($screen-glow-color);
-}
+
 
 //BASIC CODE FOR THE DASHBOARD
 

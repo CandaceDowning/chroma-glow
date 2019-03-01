@@ -8,9 +8,9 @@ export default class Victory extends Component {
         <h1 className="victory">VICTORY</h1>
 
         <div className="dash">
-          <div className="btn1">
+          <div className="leftbtn">
             <Link to="/games">
-              <button />
+              <button className="btn1"/>
             </Link>
           </div>
 
@@ -36,8 +36,8 @@ export default class Victory extends Component {
           </div>
 
           <div className="rigthbtn">
-            <div className="btn2">
-              <button onClick={() => this.props.next()} />
+            <div >
+              <button className="btn2" onClick={() => this.props.next()} />
             </div>
 
             <div className="bottombtn">

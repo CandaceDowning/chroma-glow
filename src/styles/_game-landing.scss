@@ -1,0 +1,10 @@
+.nav-title{
+    @include title ($title-stroke-color, $title-color);
+    font-size: 12vw;    
+}
+
+@media(min-width:800px){
+    .nav-title{
+        font-size: 12vh;
+    }
+}

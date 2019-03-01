@@ -1,17 +1,17 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
-export default class Escape extends Component {
+export default class ClashInt extends Component {
   render() {
     return (
       <div className="gamelanding">
-        <h1 className="defeat">ENEMY SECTOR</h1>
+      <h1 className="defeat">CLASH INTERUPTED</h1>
         
         
         
         <div className="dash">
           <div className="leftbtn">
-            <Link to="/">
+            <Link to="/games">
               <button className="btn1" />
             </Link>
           </div>
@@ -52,3 +52,6 @@ export default class Escape extends Component {
     );
   }
 }
+
+
+

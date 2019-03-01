@@ -1,34 +1,76 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { getClash, updateScore } from "../../../ducks/reducer";
+import { updateScore, updateLuck } from "../../../ducks/reducer";
 import Timer from "./Timer";
 import Victory from "./Victory";
 import Defeat from "./Defeat";
 import ClashEnd from "./ClashEnd";
-// const shuffler = require("shuffle-array");
+import ClashInt from "./ClashInt";
+const shuffler = require("shuffle-array");
 
 class ColorClash extends Component {
   constructor(props) {
     super(props);
 
+    
     this.state = {
       playerAns: false,
       playerCorrect: false,
-      questCount: 0,
+      questCount: 1,
       correctCount: 0,
-      score: 0,
-      mixedClash: props.clash
+      timeBonus: 0,
+      totalScore: 0,
+      question1: {
+        question: props.flash[0].question,
+         answers: [ 
+            {answer: props.flash[0].answer , boo: true},  
+            {answer: props.decoy[0].answer , boo: false},         	
+            {answer: props.decoy[1].answer , boo: false}
+          ]
+      },
+      question2: {
+        question: props.flash[1].question,
+         answers: [ 
+            {answer: props.flash[1].answer , boo: true},  
+            {answer: props.decoy[2].answer , boo: false},         	
+            {answer: props.decoy[3].answer , boo: false}
+          ]
+      },
+      question3: {
+        question: props.flash[2].question,
+         answers: [ 
+            {answer: props.flash[2].answer , boo: true},  
+            {answer: props.decoy[4].answer , boo: false},         	
+            {answer: props.decoy[5].answer , boo: false}
+          ]
+      },
+      question4: {
+        question: props.flash[3].question,
+         answers: [ 
+            {answer: props.flash[3].answer , boo: true},  
+            {answer: props.decoy[6].answer , boo: false},         	
+            {answer: props.decoy[7].answer , boo: false}
+          ]
+      },
+      question5: {
+        question: props.flash[4].question,
+         answers: [ 
+            {answer: props.flash[4].answer , boo: true},  
+            {answer: props.decoy[8].answer , boo: false},         	
+            {answer: props.decoy[9].answer , boo: false}
+          ]
+      }
     };
   }
 
+  //tracks the time bonus given by the countdown clock
   stopTime = time => {
-    // console.log(this.state.score);
-    // console.log(time);
-    let score = this.state.score;
-    this.setState({ score: (score += parseInt(time)) });
+    let timeBonus = this.state.timeBonus;
+    this.setState({ timeBonus: (timeBonus += parseInt(time)) });
   };
 
+  //updates state when player answers question
   answer = ans => {
     this.setState({ playerAns: true });
 
@@ -40,57 +82,86 @@ class ColorClash extends Component {
     }
   };
 
+  //takes the player to the next question after the results screen
   next = () => {
     this.setState({
       questCount: this.state.questCount + 1,
       playerAns: false,
       playerCorrect: false
     });
+    
+    //keeps a running total of the player score 
+    let luck = this.props.player.luck
+    let totTimeBonus = (this.state.timeBonus/5)*3
+    let score = this.state.correctCount*100
+    let randoLuck = Math.random()*luck+1
+    console.log(randoLuck)
+  
+    let runningScore= Math.floor((totTimeBonus+score)*randoLuck)
+    console.log(runningScore)
+    this.setState({totalScore: runningScore})
+
   };
 
+  //ends the clash, and updates high score and luck if necessary
   endClash = () => {
+    //updates player score if higher than current score
     let id = this.props.player.id;
-    let finalScore = Math.floor(
-      (this.state.score / 5) * this.state.correctCount +
-        this.state.correctCount * 100
-    );
-    console.log(this.props.player.score);
+    let finalScore =  this.state.totalScore
+
     if (finalScore > this.props.player.score) {
       this.props.updateScore(id, finalScore);
     }
+    //generates small random amount of luck, sometimes it is less than current luck
+    let luckGen = Math.random()
+    let luckAdding = luckGen.toFixed(2)
+    let luck =  parseInt(this.props.player.luck)
+    let newLuck = luck+luckAdding/10
 
-    this.setState({ questCount: 0 });
-    console.log(id);
-    console.log(finalScore);
+    //resets player luck if no answers were correct
+    if(this.state.correctCount === 0){
+      this.props.updateLuck(id, 1)
+    }
+    //updates luck if current newLuck is higher current luck 
+    else if(newLuck > this.props.player.luck){
+    this.props.updateLuck(id, newLuck)
+    }
   };
 
   render() {
-    const { clash } = this.props;
 
-    const current = clash.length && this.state.questCount;
-    const random1 = Math.floor(Math.random() * 17);
-    const random2 = Math.floor(Math.random() * 17);
+    //shuffling the answers array, and declaring variables to be rendered based on current question count
+    const { flash } = this.props;
 
-    const quest = clash.length && this.state.mixedClash[current].question;
-    const answer = clash.length && this.state.mixedClash[current].answer;
-    const wrong1 = clash.length && this.state.mixedClash[random1].answer;
-    const wrong2 = clash.length && this.state.mixedClash[random2].answer;
-    // console.log(current)
+    const current = flash.length && this.state.questCount;
+    const quest = flash.length && this.state[`question${current}`].question 
+    
+    const answers = this.state[`question${current}`].answers
+    const shuffled = shuffler(answers)
+
+    const ans1 = shuffled[0].answer
+    const ans1boo = shuffled[0].boo
+
+
+    const ans2 = shuffled[1].answer
+    const ans2boo = shuffled[1].boo
+
+
+    const ans3 = shuffled[2].answer
+    const ans3boo = shuffled[2].boo
+
 
     return (
       <div className="main colorClash">
         {/* CATCH ALL FOR REFRESH MID-GAME */}
-        {!this.props.clash[0] ? (
-          <div className="title">
-            <h1 className="title">CLASH INTERRUPTED</h1>
-            <Link to="/games">
-              <button className="btn escapebtn">Escape</button>
-            </Link>
+        {!this.props.flash[0].question === undefined ? (
+          <div>
+            <ClashInt/>
           </div>
         ) : // GAME START
         !this.state.playerAns && this.state.questCount < 5 ? (
           <div>
-            <h1 className="title">Color Clash</h1>
+            <h1 className="clash-title">Color Clash</h1>
 
             <div>
               <div className="timer-box">
@@ -98,29 +169,29 @@ class ColorClash extends Component {
                 <Timer stopTime={this.stopTime} />
               </div>
               
-              <h2 className="subtitle">{quest}</h2>
+              <h2 className="vocab">{quest}</h2>
             </div>
 
             <div className="ans-box">
-              <div className="ans1 ans" onClick={() => this.answer(true)}>
-                <p >{answer}</p>
+              <div className="ans1 ans">
+                <p >{ans1}</p>
               </div>
-              <div className="ans2 ans" onClick={() => this.answer(false)}>
+              <div className="ans2 ans">
                 <p  >
-                  {wrong1}
+                  {ans2}
                 </p>
               </div>
-              <div className="ans3 ans" onClick={() => this.answer(false)}>
+              <div className="ans3 ans">
                 <p >
-                  {wrong2}
+                  {ans3}
                 </p>
               </div>
             </div>
 
             <div className="dash">
-              <div className="btn1">
+              <div className="leftbtn">
                 <Link to="/games">
-                  <button />
+                  <button className="btn1"/>
                 </Link>
               </div>
 
@@ -146,13 +217,13 @@ class ColorClash extends Component {
               </div>
 
               <div className="rigthbtn">
-                <div className="btn2">
-                  <button />
+                <div >
+                  <button className="btn2" onClick={() => this.answer(ans1boo)}/>
                 </div>
 
                 <div className="bottombtn">
-                  <button className="btn3" />
-                  <button className="btn4" />
+                  <button className="btn3" onClick={() => this.answer(ans2boo)}/>
+                  <button className="btn4" onClick={() => this.answer(ans3boo)}/>
                 </div>
               </div>
             </div>
@@ -170,10 +241,7 @@ class ColorClash extends Component {
         ) : (
           //END OF GAME
           <ClashEnd
-            salvage={Math.floor(
-              (this.state.score / 5) * this.state.correctCount +
-                this.state.correctCount * 100
-            )}
+            salvage={this.state.totalScore}
             end={this.endClash}
           />
         )}
@@ -185,5 +253,5 @@ class ColorClash extends Component {
 const mapStateToProps = state => state;
 export default connect(
   mapStateToProps,
-  { getClash, updateScore }
+  { updateScore, updateLuck  }
 )(ColorClash);

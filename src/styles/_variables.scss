@@ -4,6 +4,7 @@
 @import url('https://fonts.googleapis.com/css?family=Press+Start+2P');
 
 
+//media query variables
 
 
 //color variables
@@ -17,6 +18,7 @@ $purple: #e006e7;
 $title-font: 'Audiowide', cursive;
 $subtitle-font: 'Press Start 2P', cursive;
 $label-font: 'Audiowide', cursive;
+
 
 
 //global variables
@@ -34,7 +36,6 @@ $btn1-color: $red;
 $btn2-color: darken($green, 15%);
 $btn3-color: $blue;
 $btn4-color: $purple;
-
 $btn-glow-color: $yellow;
 $screen-glow-color: $blue;
 
@@ -49,13 +50,18 @@ $victory-stroke-color: $green;
 $defeat-color: lighten($bg-color, 5%);
 $defeat-stroke-color: $red;
 
-//flashcard varables
+//flashcard variables
 $question-text-color: $green;
 $question-stroke-color: $purple;
 $question-bg-color: $blue;
 $answer-text-color: $blue;
 $answer-stroke-color: $purple;
 $answer-bg-color: $green;
+
+//specwave variables
+$outer-color: $green;
+$inner-color: $blue;
+$cal-label-color: $inner-color;
 
 
   //styles border radius for all browsers
@@ -76,13 +82,28 @@ $answer-bg-color: $green;
   }
 
 
+@mixin title ($stroke-color, $fill-color){
+  margin: 1vw;
+  font-size: 10vw;
+  font-family: $title-font;
+  @include text-stroke($stroke-color, 0.25px, $fill-color);
+  @include text-glow-shadow($yellow);
+}
+
+@mixin subtitle ($color, $size){
+  color: $color;
+  font-family: $subtitle-font;
+  font-size: $size;
+  @include text-glow-shadow($screen-glow-color);
+}
+
 
 
 //styles buttons allowing for different direction drop shadow, button color, shadow color, and gradient direction
 @mixin arcade-button($direction, $color, $shadow-color, $drop1, $drop2) {
     border: .5px solid darken($color, 30%);
-    width: 10vh;
-    height: 10vh;
+    width: 10vw;
+    height: 10vw;
     background-image: radial-gradient(closest-side at $drop1 $drop2,
       darken($color, 8%)70%,
       $color 90%,
@@ -90,10 +111,38 @@ $answer-bg-color: $green;
     );
     box-shadow: $direction 1px 6px $shadow-color;
     margin: 1vh 0 2vh 0;
+    outline: none;
     @include border-radius(50%);
+
+    @media(min-width: 800px){
+      width: 10vh;
+      height: 10vh;
+    }
   }
 
+  
 
+  // @mixin arcade-button-active($direction, $color, $drop1, $drop2) {
+  //   border: .5px solid darken($color, 30%);
+  //   width: 10vw;
+  //   height: 10vw;
+  //   background-image: radial-gradient(closest-side at $drop1 $drop2,
+  //     darken($color, 8%)70%,
+  //     $color 90%,
+  //     darken($color, 10%) 
+  //   );
+  //   box-shadow: none;
+  //   margin: 1vh 0 2vh 0;
+  //   @include border-radius(50%);
+
+  // }
+
+  @mixin cal-light(){
+    width: 8vh;
+    height: 8vh;
+    @include border-radius(50%);
+
+  }
 
   
 
@@ -124,3 +173,32 @@ $answer-bg-color: $green;
     @include stroke-width($width);
     @include stroke-color($stroke-color)
 }
+
+  @mixin cal-light-gradient($color){
+    background-image: repeating-radial-gradient($color, darken($color, 3%) 10%, $color 20%, darken($color, 3%) 10%);
+  }
+
+
+
+
+
+    //  251, 254, 6
+    //  249, 240, 17     
+    //  248, 227, 29    
+    //  246, 214, 41     
+    //  245, 201, 53    
+    //  243, 188, 65    
+    //  242, 175, 77    
+    //  241, 162, 88    
+    //  239, 149, 100    
+    //  238, 136, 112    
+    //  236, 123, 124    
+    //  235, 110, 136    
+    //  233, 97, 148    
+    //  232, 84, 159    
+    //  231, 71, 171    
+    //  229, 58, 183    
+    //  228, 45, 195    
+    //  226, 32, 207    
+    //  225, 19, 219   
+    //  224, 6, 231

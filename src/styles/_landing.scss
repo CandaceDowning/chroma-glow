@@ -1,5 +1,24 @@
+.main-title{
+    @include title ($title-stroke-color, $title-color);
+    font-size: 15vw;
+}
+
+.subtitle {
+    @include subtitle($subtitle-color, 6vw)
+    }
+
+
 .start{
-    color: $btn1-color;
-    font-family: $subtitle-font;
+    @include subtitle($btn1-color, 6vw);
     margin: 20vh 0 0 0;
+}
+
+
+@media(min-width: 500px){
+    .main-title{
+        font-size: 10vh;
+    }
+    .start{
+        @include subtitle($btn1-color, 3vh);
+    }
 }
