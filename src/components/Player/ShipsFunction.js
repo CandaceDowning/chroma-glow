@@ -41,7 +41,7 @@ class ShipsFunctions extends Component {
                   </div>
                   <div className="key-holder">
                     <div className="btn2-key key" />
-                    <p>LOG OUT</p>
+                    <p>SCAN FOR LIFEFORMS</p>
                   </div>
                   <div className="key-holder">
                     <div className="btn3-key key" />
@@ -55,8 +55,8 @@ class ShipsFunctions extends Component {
               </div>
               <div className="rigthbtn">
                 <div >
-                  <Link to="/">
-                    <button className="btn2" onClick={this.props.logout}/>
+                  <Link to='/player/scanner'>
+                    <button className="btn2" />
                   </Link>
                 </div>
 

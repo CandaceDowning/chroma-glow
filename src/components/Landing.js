@@ -20,7 +20,7 @@ class Landing extends Component {
   render() {
     if (this.props.player.length) {
       return <Redirect push to="/games" />;
-      console.log(this.props.player.length)
+
     }
 
     return (

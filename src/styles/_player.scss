@@ -130,5 +130,157 @@ font-size: 10vw;
           }
         }
       }
+
+
+
+
+
+      //styles personal log email
+
+
+
+        .email-box{
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          width: 100%;
+          font-family: $title-font;
+
+          .email-title{
+            text-align: center;
+            // margin: 1vw;
+            font-size: 4vw;
+            width: 70vw;
+            @include text-stroke($yellow, 0.25px, $green);
+            @include text-glow-shadow($yellow);
+          }
+
+          @media(min-width:900px){
+
+              .email-title{
+              font-size: 4vh;
+            }
+
+          }
+        
+
+          .email-line{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: space-around;
+            background-color: lighten($bg-color, 20%);
+            width: 70vw;
+            @include border-radius(10px);
+            font-size: 2.5vw;
+            text-align: center;
+            
+
+            .from{
+              color: $purple;
+              padding: 0 0 0 2vh;
+            }
+
+            .subject{
+              color:$green;
+              padding: 0 2vh 0 0 ;
+            }
+          }
+
+          @media(min-width: 900px){
+            .email-line{
+              display: flex;
+              flex-direction:row;
+              justify-content: space-around;
+              font-size: 2vw;
+              // width: 60vw;
+            }
+          }
+        }
     
+    
+      .donation{
+        background-image: linear-gradient(-20deg, $red , $purple, $blue, $green, $yellow);
+        font-family: $title-font;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        height: 100%;
+        width: 100%;
+        
+        .donate-title{
+            margin: 1vw;
+            font-size: 5vw;
+            @include text-stroke(lighten($blue, 10%), 0.25px, $purple);
+            @include text-glow-shadow($yellow);
+          }
+
+
+          .chart-text-box{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center; 
+            height: 65vh;
+
+
+            .donate-head{
+              display: flex;
+              flex-direction: column;
+              justify-content: space-around;
+              align-items: center;
+              width: 30vw;
+              height: 60vh;
+              
+              .chart-title{
+                @include text-stroke(lighten($purple, 20%), 0.2px, $blue);
+                // color: darken($blue, 2%);
+                font-size: 4vh;
+
+              }
+              .donate-chart{
+                position: relative;
+                width: 20vw;
+            
+              }
+              .donate-subtitle{
+                color: darken($green, 7%);
+                font-size: 2.5vh;
+
+              }
+              .donatebtn{
+                font-family: $subtitle-font;
+                color: $purple;
+                font-size: 3vh;
+                border: 3px solid lighten($yellow, 20%);
+                outline: none;
+                background-color: $green;
+                border-radius: 10px;
+                height:6vh;
+                width:25vh;
+              }
+
+            }
+            .donate-box{
+              background-color: rgba(40,249,252,.3);
+              border-radius: 10px;
+              width:38vw;
+              display: flex;
+              justify-content: center;
+            .donate-text{
+              
+              line-height: 3vh;
+              font-size: 2.2vh;
+              color: lighten($bg-color, 20%);
+              width: 35vw;
+
+              }
+            }
+
+          }
+      }
+
       
+
+      
+

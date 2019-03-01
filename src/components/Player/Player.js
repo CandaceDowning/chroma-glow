@@ -63,7 +63,7 @@ class Player extends Component {
                   </div>
                   <div className="key-holder">
                     <div className="btn2-key key" />
-                    <p>SCAN FOR LIFEFORMS</p>
+                    <p>DOCK THE SHIP</p>
                   </div>
                   <div className="key-holder">
                     <div className="btn3-key key" />
@@ -77,7 +77,7 @@ class Player extends Component {
               </div>
               <div className="rigthbtn">
                 <div >
-                    <Link to = '/player/scanner'><button className="btn2" /></Link>
+                    <Link to = '/'><button className="btn2" onClick={this.props.logout}/></Link>
                 </div>
 
                 <div className="bottombtn">

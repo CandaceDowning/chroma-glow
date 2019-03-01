@@ -10,11 +10,11 @@ class DonateChart extends Component {
         this.state={
             data: {
                 labels: [
-                    this.props.donate[0].playername, 
-                    this.props.donate[1].playername, 
-                    this.props.donate[2].playername, 
-                    this.props.donate[3].playername, 
-                    this.props.donate[4].playername],
+                    this.props.donate[0].playername.toUpperCase(), 
+                    this.props.donate[1].playername.toUpperCase(), 
+                    this.props.donate[2].playername.toUpperCase(), 
+                    this.props.donate[3].playername.toUpperCase(), 
+                    this.props.donate[4].playername.toUpperCase()],
                 datasets: [
                   {
                     label: "Population (millions)",
@@ -31,8 +31,7 @@ class DonateChart extends Component {
               },
               options: {
                 title: {
-                  display: true,
-                  text: 'Predicted world population (millions) in 2050'
+                  maintainAspectRatio: false,
                 }
               }
 

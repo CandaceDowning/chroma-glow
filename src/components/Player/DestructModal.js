@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { deletePlayer, } from "../../ducks/reducer";
-import { withRouter, Link} from "react-router-dom";
+import { withRouter} from "react-router-dom";
 
 //this modal will allow user to log in or sign up
 class DestructModal extends Component {
