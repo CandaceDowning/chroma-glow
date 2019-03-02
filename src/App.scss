@@ -155,6 +155,18 @@
 @include title($title-stroke-color, $title-color)
 }
 
+.escape-title{
+  @include text-stroke($defeat-color, .25px, $defeat-stroke-color);
+  margin: 22vh 2vw;
+  font-size: 9vh;
+  font-family: $title-font;    
+  @include text-glow-shadow($screen-glow-color);
+}
+@media(min-width:400px){
+  .escape-title{
+    font-size: 12vh;
+  }
+}
 
 
 //BASIC CODE FOR THE DASHBOARD

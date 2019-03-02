@@ -3,15 +3,15 @@
 font-size: 10vw;
 }
 
-@media(min-width:400px){
-  .player-title{
-      font-size: 4vh;
-  }
-}
+// @media(min-width:450px){
+//   .player-title{
+//       font-size: 4vh;
+//   }
+// }
 
 @media(min-width:500px){
   .player-title{
-      font-size: 5vh;
+      font-size: 8vh;
   }
 }
 
@@ -31,27 +31,31 @@ font-size: 10vw;
 
 .stats{
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
+    align-content: space-around;
     color: $subtitle-color;
     font-family: $subtitle-font;
-    margin: 1vw 3vw;
+    margin: 5vw 3vw;
 
         @include text-glow-shadow($screen-glow-color);
         h3{
-        font-size: 2.5vw;
+        font-size: 2vh;
         }
         p{
-        font-size: 4vw;
+        font-size: 3vh;
         }
     }
 
     @media(min-width:800px){
       .stats{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
         h3{
-          font-size: 2vh;
+          font-size: 4vh;
         }
         p{
-          font-size: 3vh;
+          font-size: 8vh;
         }
       }
     }

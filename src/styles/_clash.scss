@@ -5,7 +5,7 @@
 
 @media(min-width: 600px){
     .clash-title{
-        font-size: 6vh;
+        font-size: 10vh;
     }
 }
 
@@ -106,12 +106,12 @@
         flex-direction: row;
         justify-content: space-around;
         align-items: center;
-        height: 40vh;
+        height: 35vh;
         width: 100vw;
     }
 }
 
-.victory, .defeat, .end{
+.end{
     margin: 25vh 0 0 0;
     font-size: 15vw;
     font-family: $title-font;    
@@ -131,5 +131,10 @@
     @include text-stroke($defeat-color, .25px, $defeat-stroke-color);
 }
 
-
+.victory, .defeat{
+    margin: 25vh 0 0 0;
+    font-size: 13vw;
+    font-family: $title-font;    
+    @include text-glow-shadow($screen-glow-color);
+}
 

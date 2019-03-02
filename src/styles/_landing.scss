@@ -16,7 +16,7 @@
 
 @media(min-width: 500px){
     .main-title{
-        font-size: 10vh;
+        font-size: 13vh;
     }
     .start{
         @include subtitle($btn1-color, 3vh);

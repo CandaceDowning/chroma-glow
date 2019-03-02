@@ -33,7 +33,7 @@ class Player extends Component {
               <div className='stats'>
                 <div className="salvage">
                   <h3>HIGHEST</h3>
-                  <h3>SALVAGE COUNT:</h3> 
+                  <h3>SALVAGE:</h3> 
                   <p >{this.props.player.score}</p>
                 </div>
                 <div className="salvage">

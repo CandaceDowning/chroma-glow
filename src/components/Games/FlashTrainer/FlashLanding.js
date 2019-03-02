@@ -11,7 +11,7 @@ class FlashLanding extends Component{
         return(
             <div className="main">
                 <h1 className="flash-title">FLASH TRAINER</h1>
-                <p className="flash-subtitle">PREPARE YOURSELF FOR CLASH TIME! INCREASE YOUR KNOWLEDGE AND YOUR LUCK!</p>
+                <p className="flash-subtitle">PREPARE YOURSELF FOR THE CLASH! INCREASE YOUR KNOWLEDGE AND YOUR LUCK!</p>
 
                 <div className="dash">
               <div className="leftbtn">

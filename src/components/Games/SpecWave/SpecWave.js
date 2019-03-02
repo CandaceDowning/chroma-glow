@@ -7,7 +7,7 @@ class SpecWave extends Component{
         return(
             <div className="main">
                 <h1 className="cal-title">CALIBRATE SPECTRAL WAVE</h1>
-                <p className="cal-subtitle">Increase your color accuity and your chances for a successful clash!</p>
+                <p className="cal-subtitle">INCREASE YOUR COLOR ACCUITY AND YOUR CHANCES FOR A SUCCESSFUL CLASH!</p>
 
                 <div className="dash">
               <div className="leftbtn">

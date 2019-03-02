@@ -221,7 +221,7 @@ class Scanner extends Component {
             <div className="btnpanel">
               <p>CLOSE</p>
               <p> SCANNER</p>
-              <Link to="/player">
+              <Link to="/player/ship">
                 <div className="calbtn1" />
               </Link>
             </div>

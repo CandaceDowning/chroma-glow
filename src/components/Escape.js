@@ -5,7 +5,7 @@ export default class Escape extends Component {
   render() {
     return (
       <div className="gamelanding">
-        <h1 className="defeat">ENEMY SECTOR</h1>
+        <h1 className="escape-title">ENEMY SECTOR</h1>
         
         
         

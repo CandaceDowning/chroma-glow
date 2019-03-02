@@ -15,8 +15,8 @@ class ClashLanding extends Component{
     render(){
         return(
             <div className="main">
-                <h1 className="clash-title">NOW ENTERING THE CLASH ZONE</h1>
-                <p className="clash-subtitle">A battle of wits and a race against time. Be swift and be correct to reap the rewards of Salvage and increase your luck!</p>
+                <h1 className="clash-title">THE CLASH ZONE</h1>
+                <p className="clash-subtitle">A BATTLE OF WITS AND A RACEC AGAINST TIME. BE SWIFT AND BE CORRECT TO REAP THE REWARDS OF SALVAGE AND INCREASE YOUR LUCK!</p>
 
                 <div className="dash">
               <div className="leftbtn">
