@@ -27,6 +27,7 @@ const UPDATE_LUCK = 'UPDATE_LUCK'
 const GET_RANK = 'GET_RANK'
 const GET_STATS = 'GET_STATS'
 const GET_DONATE = 'GET_DONATE'
+const CAL_RESET = 'CAL_RESET'
 
 
 //action creators
@@ -112,6 +113,13 @@ export function getDonate(){
     }
 };
 
+export function calReset(){
+    return{
+        type: CAL_RESET,
+        payload: axios.put('/game/calreset')
+    }
+};
+
 
 
 
@@ -182,6 +190,11 @@ export default function reducer(state=initialState, action){
         return{
             ...state,
             donate: action.payload.data
+        };
+        case `${CAL_RESET}_FULFILLED`:
+        return{
+            ...state,
+            level: action.payload.data
         };
         default:
         return state;

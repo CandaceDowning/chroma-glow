@@ -1,68 +1,63 @@
-//holding delete account, reset calibration
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { getPlayer, getFlash, getDecoy } from "../../ducks/reducer";
-import Escape from "../Escape";
-import DestructModal from "./DestructModal";
+import { calReset } from "../../ducks/reducer";
+import Escape from '../Escape'
 
-class ShipsFunctions extends Component {
-    constructor() {
-        super();
-    
-        this.state = {
-          show: false
-        };
-      }
-
-      toggleModal = e => {
-        this.setState({ show: !this.state.show });
-        console.log(this.props.player.id)
-      };
+class CalReset extends Component {
 
 
+    reset = () =>{
+        this.props.calReset(this.props.player.id)
+    }
+  
   render() {
     return (
       <div className="main">
         {this.props.player.playername ? (
           <div className="gamelanding">
-            <h1 className="ship-title">SHIPS FUNCTIONS</h1>
+            <h1 className="start">ARE YOU SURE</h1>
+            <h1 className="start"> YOU WANT TO RESET YOUR SCANNER CALIBRATION?</h1>
+
+
+{/* dasboard template */}
+
             <div className="dash">
               <div className="leftbtn">
-                <Link to="/player">
-                  <button className="btn1" />
+                <Link to="/player/ship">
+                  <button className="btn1"/>
                 </Link>
               </div>
               <div className="btn-key-screen">
                 <div className="key-box">
                   <div className="key-holder">
                     <div className="btn1-key key" />
-                    <p>COMMAND CONSOLE</p>
+                    <p>SHIPS FUNCTIONS</p>
                   </div>
                   <div className="key-holder">
                     <div className="btn2-key key" />
-                    <p>SCAN FOR LIFEFORMS</p>
+                    <p>RESET</p>
                   </div>
                   <div className="key-holder">
                     <div className="btn3-key key" />
-                    <p>RESET CALIBRATION</p>
+                    <p></p>
                   </div>
                   <div className="key-holder">
                     <div className="btn4-key key" />
-                    <p>SELF DESTRUCT</p>
+                    <p></p>
                   </div>
                 </div>
               </div>
               <div className="rigthbtn">
                 <div >
-                  <Link to='/player/scanner'>
-                    <button className="btn2" />
+                  <Link to="/player/ship">
+                    <button className="btn2" onClick={this.reset}/>
                   </Link>
                 </div>
 
                 <div className="bottombtn">
-                  <Link to='/player/calreset'><button className="btn3"/></Link>
-                  <button className="btn4" onClick={()=>this.toggleModal()} />
+                  <button className="btn3" />
+                  <button className="btn4" />
                 </div>
               </div>
             </div>
@@ -72,12 +67,6 @@ class ShipsFunctions extends Component {
             <Escape />
           </div>
         )}
-
-        <div>
-          <DestructModal show={this.state.show} toggle={this.toggleModal} />
-        </div>
-
-
       </div>
     );
   }
@@ -86,5 +75,5 @@ class ShipsFunctions extends Component {
 const mapStateToProps = state => state;
 export default connect(
   mapStateToProps,
-  { getPlayer, getFlash, getDecoy }
-)(ShipsFunctions);
+  { calReset }
+)(CalReset);

@@ -100,6 +100,20 @@ module.exports = {
         res.status(500).json(err);
       });
   },
+  calReset: (req, res) => {
+  const db = req.app.get("db");
+  const { id } = req.body;
+  req.session.player.level = 5,
+
+  db.reset_cal(id)
+    .then(
+      console.log(req.session.player),
+      res.status(200).json(req.session.player))
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+},
 
 };
 

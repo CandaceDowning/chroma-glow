@@ -13,6 +13,7 @@ import Scanner from './components/Player/Scanner'
 import DonateChart from './components/Player/DonateChart'
 import Log from './components/Player/Log'
 import ShipsFunction from './components/Player/ShipsFunction';
+import CalReset from './components/Player/CalRest';
 
 
 export default(
@@ -30,5 +31,6 @@ export default(
         <Route path = '/player/donate' component = {DonateChart}/>
         <Route path = '/player/log' component = {Log}/>
         <Route path = '/player/ship' component = {ShipsFunction}/>
+        <Route path = '/player/calreset' component = {CalReset}/>
     </Switch>
 )
