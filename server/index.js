@@ -1,3 +1,4 @@
+const path = require('path');
 require("dotenv").config();
 const express = require("express");
 const { json } = require("body-parser");
@@ -47,4 +48,8 @@ app.put("/game/calReset", calReset);
 //server port
 app.listen(process.env.EXPRESS_PORT, () => {
   console.log(`Listening on port ${process.env.EXPRESS_PORT}`);
+});
+
+app.get('*', (req, res)=>{
+  res.sendFile(path.join(__dirname, '../build/index.html'));
 });
