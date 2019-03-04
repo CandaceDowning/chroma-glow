@@ -8,6 +8,8 @@ const app = express();
 const { signup, login, getPlayer, logout , deletePlayer} = require("./authController");
 const { getFlash, getDecoy, updateScore, updateLuck, getRank, getStats, getDonate, calReset } = require("./gameController");
 
+
+
 app.use(json());
 
 //set up session
@@ -21,6 +23,9 @@ app.use(
     }
   })
 );
+
+
+app.use( express.static( `${__dirname}/../build` ) );
 
 //set up massive for database connection
 massive(process.env.CONNECTION_STRING).then(db => {

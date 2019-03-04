@@ -6,14 +6,14 @@ An arcade simulator designed to encourage studying of vocabulary. Originally des
 
 
 ### `A full stack personal project that utilizes:`
-React
-Redux
-Node
-Massive
-Express-Session
-Axios
-Sass
-Chart.js
+React,
+Redux,
+Node,
+Massive,
+Express-Session,
+Axios,
+Sass,
+Chart.js,
 
 With future plans to add a drag and drop package.
 
