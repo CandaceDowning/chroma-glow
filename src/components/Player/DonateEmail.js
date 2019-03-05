@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import DonateChart from './DonateChart'
 import { connect } from "react-redux";
-import { updateScore, getPlayer } from "../../ducks/reducer";
+import { updateScore, getPlayer, donate } from "../../ducks/reducer";
 
 
 class DonateEmail extends Component {
@@ -16,11 +16,12 @@ class DonateEmail extends Component {
     }
 
     donate = () =>{
-
+        let donation=this.props.player.donation += this.props.player.score
+        console.log(donation)
         //checks if the player has a hi_score and updates state accordingly
         if(this.props.player.score > 0){
-        this.props.updateScore(this.props.player.id, 0).then(this.props.getPlayer());
-        this.setState({donated: true});            
+        this.props.donate(this.props.player.id, donation) 
+        .then(this.setState({donated: true}));           
         }
 
         if(this.props.player.score === 0){
@@ -80,5 +81,5 @@ class DonateEmail extends Component {
 const mapStateToProps = state => state;
 export default connect(
   mapStateToProps,
-  { updateScore, getPlayer }
+  { updateScore, getPlayer, donate }
 )(DonateEmail);

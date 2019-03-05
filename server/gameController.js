@@ -114,6 +114,22 @@ module.exports = {
       res.status(500).json(err);
     });
 },
+donate: (req, res) => {
+  const db = req.app.get("db");
+  const { id, donation } = req.body;
+  console.log(donation)
+  req.session.player.donation = donation,
+  req.session.player.score = 0
+
+  db.donate(id, donation)
+    .then(
+      console.log(req.session.player),
+      res.status(200).json(req.session.player))
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+},
 
 };
 

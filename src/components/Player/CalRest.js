@@ -9,6 +9,7 @@ class CalReset extends Component {
 
     reset = () =>{
         this.props.calReset(this.props.player.id)
+        console.log(this.props.player.id)
     }
   
   render() {

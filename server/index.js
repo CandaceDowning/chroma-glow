@@ -6,7 +6,7 @@ const session = require("express-session");
 const massive = require("massive");
 const app = express();
 const { signup, login, getPlayer, logout , deletePlayer} = require("./authController");
-const { getFlash, getDecoy, updateScore, updateLuck, getRank, getStats, getDonate, calReset } = require("./gameController");
+const { getFlash, getDecoy, updateScore, updateLuck, getRank, getStats, getDonate, calReset, donate } = require("./gameController");
 
 
 
@@ -48,7 +48,8 @@ app.get("/game/decoy", getDecoy);
 app.get("/game/rank", getRank);
 app.get("/game/stats", getStats);
 app.get('/game/donaterank', getDonate);
-app.put("/game/calReset", calReset);
+app.put("/game/calreset", calReset);
+app.put('/game/donate', donate)
 
 //server port
 app.listen(process.env.EXPRESS_PORT, () => {

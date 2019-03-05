@@ -28,6 +28,7 @@ const GET_RANK = 'GET_RANK'
 const GET_STATS = 'GET_STATS'
 const GET_DONATE = 'GET_DONATE'
 const CAL_RESET = 'CAL_RESET'
+const DONATE = 'DONATE '
 
 
 //action creators
@@ -113,13 +114,18 @@ export function getDonate(){
     }
 };
 
-export function calReset(){
+export function calReset(id){
     return{
         type: CAL_RESET,
-        payload: axios.put('/game/calreset')
+        payload: axios.put('/game/calreset', {id})
     }
 };
-
+export function donate(id, donation){
+    return{
+        type: DONATE,
+        payload: axios.put('/game/donate', {id, donation})
+    }
+};
 
 
 
@@ -195,6 +201,11 @@ export default function reducer(state=initialState, action){
         return{
             ...state,
             level: action.payload.data
+        };
+        case `${DONATE}_FULFILLED`:
+        return{
+            ...state,
+            donate: action.payload.data
         };
         default:
         return state;

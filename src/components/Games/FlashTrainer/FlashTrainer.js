@@ -56,7 +56,6 @@ class FlashTrainer extends Component{
 
 
     render(){
-        console.log(this.state.current)
 
         const { flash } = this.props;
 

@@ -7,6 +7,7 @@ import Victory from "./Victory";
 import Defeat from "./Defeat";
 import ClashEnd from "./ClashEnd";
 import ClashInt from "./ClashInt";
+import { withRouter} from "react-router-dom";
 const shuffler = require("shuffle-array");
 
 class ColorClash extends Component {
@@ -17,50 +18,11 @@ class ColorClash extends Component {
     this.state = {
       playerAns: false,
       playerCorrect: false,
-      questCount: 1,
+      questCount: 0,
+      decoyCount:5,
       correctCount: 0,
       timeBonus: 0,
       totalScore: 0,
-      question1: {
-        question: props.flash[0].question,
-         answers: [ 
-            {answer: props.flash[0].answer , boo: true},  
-            {answer: props.decoy[0].answer , boo: false},         	
-            {answer: props.decoy[1].answer , boo: false}
-          ]
-      },
-      question2: {
-        question: props.flash[1].question,
-         answers: [ 
-            {answer: props.flash[1].answer , boo: true},  
-            {answer: props.decoy[2].answer , boo: false},         	
-            {answer: props.decoy[3].answer , boo: false}
-          ]
-      },
-      question3: {
-        question: props.flash[2].question,
-         answers: [ 
-            {answer: props.flash[2].answer , boo: true},  
-            {answer: props.decoy[4].answer , boo: false},         	
-            {answer: props.decoy[5].answer , boo: false}
-          ]
-      },
-      question4: {
-        question: props.flash[3].question,
-         answers: [ 
-            {answer: props.flash[3].answer , boo: true},  
-            {answer: props.decoy[6].answer , boo: false},         	
-            {answer: props.decoy[7].answer , boo: false}
-          ]
-      },
-      question5: {
-        question: props.flash[4].question,
-         answers: [ 
-            {answer: props.flash[4].answer , boo: true},  
-            {answer: props.decoy[8].answer , boo: false},         	
-            {answer: props.decoy[9].answer , boo: false}
-          ]
-      }
     };
   }
 
@@ -82,10 +44,11 @@ class ColorClash extends Component {
     }
   };
 
-  //takes the player to the next question after the results screen
+  //takes the player to the next set of question and answers after the results screen
   next = () => {
     this.setState({
       questCount: this.state.questCount + 1,
+      decoyCount: this.state.decoyCount + 2,
       playerAns: false,
       playerCorrect: false
     });
@@ -130,13 +93,22 @@ class ColorClash extends Component {
 
   render() {
 
-    //shuffling the answers array, and declaring variables to be rendered based on current question count
+    //shuffling the answers array, and declaring variables to be rendered from props based on current question count
     const { flash } = this.props;
 
     const current = flash.length && this.state.questCount;
-    const quest = flash.length && this.state[`question${current}`].question 
+
+    const quest = flash.length && flash[current].question 
     
-    const answers = this.state[`question${current}`].answers
+    let decoy1 = this.state.decoyCount
+    let decoy2 = decoy1++
+
+    const answers =[ 
+      {answer: flash[current].answer , boo: true},  
+      {answer: flash[decoy1].answer , boo: false},         	
+      {answer: flash[decoy2].answer , boo: false}
+    ]
+    
     const shuffled = shuffler(answers)
 
     const ans1 = shuffled[0].answer
@@ -154,7 +126,7 @@ class ColorClash extends Component {
     return (
       <div className="main colorClash">
         {/* CATCH ALL FOR REFRESH MID-GAME */}
-        {!this.props.flash[0].question === undefined ? (
+        {!this.props.flash.length ? (
           <div>
             <ClashInt/>
           </div>
@@ -251,7 +223,9 @@ class ColorClash extends Component {
 }
 
 const mapStateToProps = state => state;
-export default connect(
+export default withRouter(
+connect(
   mapStateToProps,
   { updateScore, updateLuck  }
-)(ColorClash);
+)(ColorClash)
+);

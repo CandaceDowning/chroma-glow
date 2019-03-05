@@ -58,9 +58,10 @@ class AuthModal extends Component {
             <div className='cursor'>
             <input
               className="modalinput"
-              required
               value={this.state.playername}
               name="playername"
+              type='text'
+              required
               placeholder="DESIGNATION"
               onChange={this.handleChange}
             /></div>
@@ -68,7 +69,7 @@ class AuthModal extends Component {
             <input
               className="modalinput"
               required
-              // type='password'
+              type='password'
               value={this.state.password}
               name="password"
               placeholder="PASSWORD"
