@@ -31,7 +31,7 @@ class Log extends Component{
 
                         <div className="email-line">
                             <p className="from">SPACE ORPHANS GUILD:</p>
-                            <p className='subject'>HAVE YOU DONATED LATELY?</p>
+                            <p className='subject'> HELLO {this.props.player.playername.toUpperCase()}, HAVE YOU DONATED LATELY?</p>
                         </div>
 
 

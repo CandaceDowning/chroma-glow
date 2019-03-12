@@ -3,6 +3,9 @@ import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 import { getPlayer, getFlash, getDecoy } from "../../ducks/reducer";
 import Escape from "../Escape";
+import clashCard from "../../images/clash_img_card.png"
+import flashCard from "../../images/flash_img_card.png"
+import calCard from "../../images/cal_img_card.png"
 
 class GameLanding extends Component {
   //sets up player stats and game data
@@ -24,6 +27,15 @@ class GameLanding extends Component {
         {this.props.player.playername ? (
           <div className="gamelanding">
             <h1 className="nav-title">NAVIGATION</h1>
+
+          <div className="nav-cards">
+            <img src={clashCard} alt="clash game"/>
+            <img src={flashCard} alt="flash game"/>
+            <img src={calCard} alt="calibration game"/>
+          </div>
+
+
+
             <div className="dash">
               <div className="leftbtn">
                 <Link to="/player">

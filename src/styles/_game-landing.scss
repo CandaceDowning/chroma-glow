@@ -8,3 +8,29 @@
         font-size: 12vh;
     }
 }
+
+.nav-cards{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 6vh;
+    img{
+        width: 60vw;
+        height: 18vh;
+        margin-top: 2vh;
+    }
+}
+
+@media(min-width:1000px){
+    .nav-cards{
+        flex-direction:row;
+        justify-content: space-around;
+    
+    img{
+        width: 30vw;
+        height: 35vh;
+    }
+}
+}
+    

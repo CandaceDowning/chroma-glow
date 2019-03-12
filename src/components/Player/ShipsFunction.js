@@ -5,6 +5,9 @@ import { Link } from "react-router-dom";
 import { getPlayer, getFlash, getDecoy } from "../../ducks/reducer";
 import Escape from "../Escape";
 import DestructModal from "./DestructModal";
+import scanCard from "../../images/scan_card.png";
+import calResetCard from "../../images/cal_card.png";
+import selfDestruct from "../../images/selfdestruct_card.png"
 
 class ShipsFunctions extends Component {
     constructor() {
@@ -27,6 +30,13 @@ class ShipsFunctions extends Component {
         {this.props.player.playername ? (
           <div className="gamelanding">
             <h1 className="ship-title">SHIPS FUNCTIONS</h1>
+            
+          <div className="nav-cards">
+            <img src={scanCard} alt="clash game"/>
+            <img src={calResetCard} alt="flash game"/>
+            <img src={selfDestruct} alt="calibration game"/>
+          </div>
+
             <div className="dash">
               <div className="leftbtn">
                 <Link to="/player">
